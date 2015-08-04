@@ -17,17 +17,20 @@ lat_new = p.lat + dlat;
 lon_new = mod(lon_new,360);
 
 % Check for coastlines 
-id = getIndex(lon_new,settings.landmass.lon);
-jd = getIndex(lat_new,settings.landmass.lat);
+id = getIndex(lon_new,settings.landmass.lon) +1;
+jd = getIndex(lat_new,settings.landmass.lat) +1;
 
 land  = zeros(1,p.np);
 
 for k=1:p.np 
-    land(k) = settings.landmass.data(id(k)+1,jd(k)+1);
+    land(k) = settings.landmass.data(id(k),jd(k));
 end
 
 lat_new(land==1) = p.lat(land==1);
 lon_new(land==1) = p.lon(land==1);
+
+lat_new(p.releaseDate > settings.date) = p.lat(p.releaseDate > settings.date);
+lon_new(p.releaseDate > settings.date) = p.lon(p.releaseDate > settings.date);
 
 p.lon = lon_new;
 p.lat = lat_new;

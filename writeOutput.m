@@ -14,6 +14,7 @@ netcdf.putVar(ncid, 2, [K,0], [1, p.np] , p.lat)
 
 if K==0
     netcdf.putVar(ncid, 3, p.id)
+    netcdf.putVar(ncid, 4, p.releaseDate)
 end
 
 netcdf.close(ncid)

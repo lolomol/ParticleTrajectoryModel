@@ -11,15 +11,15 @@ writeOutput ( p, settings)
 while settings.date <= settings.finalDate 
     
     % get forcing constituents
-%     [u,v] = getSScurrent( p, settings );
+    [u,v] = getSScurrent( p, settings );
     [us,vs] = getStokes( p, settings );
-%     [uw,vw] = getWindage( p, settings );
-%     [Dx,Dy] = getDiffusion( p, settings );
+    [uw,vw] = getWindage( p, settings );
+    [Dx,Dy] = getDiffusion( p, settings );
     
-    u=0;v=0;
+%     u=0;v=0;
 %     us=0;vs=0;
-    uw=0;vw=0; 
-    Dx=0;Dy=0; 
+%     uw=0;vw=0; 
+%     Dx=0;Dy=0; 
     
     % advect
     dt = settings.modelTimestep;

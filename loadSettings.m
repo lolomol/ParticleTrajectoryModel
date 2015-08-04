@@ -6,10 +6,12 @@ settings.WindagePath    = 'E:\gfs\';
 settings.BathyFilename  = 'E:\etopo2\ETOPO2_0.5.nc';
 settings.LandFilename   = 'E:\landmass\HYCOM_landmass.nc';
 
-settings.OutputFilename = 'E:\particles\try\may_2000_stokesOnly.nc';
+settings.SourceFilename = 'E:\model\sources_nc\parts_source_2000_156.nc';
 
-settings.initDate       = datenum(2000,5,01,0,0,0);
-settings.finalDate      = datenum(2000,6,01,0,0,0);
+settings.OutputFilename = 'E:\particles\try\China_2000.nc';
+
+settings.initDate       = datenum(2000,01,01,0,0,0);
+settings.finalDate      = datenum(2001,01,01,0,0,0);
 settings.modelTimestep  = datenum(0,0,0,6,0,0)  *24 *3600 ; %in sec
 settings.outputTimestep = datenum(0,0,0,12,0,0);
 

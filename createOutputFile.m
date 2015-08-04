@@ -15,7 +15,9 @@ time_dimID = netcdf.defDim(ncid,'time',length(time));
 netcdf.defVar(ncid,'time','NC_FLOAT', time_dimID );
 netcdf.defVar(ncid,'lon','NC_FLOAT', [time_dimID, p_dimID] );
 netcdf.defVar(ncid,'lat','NC_FLOAT', [time_dimID, p_dimID] );
-netcdf.defVar(ncid,'id','NC_FLOAT', p_dimID );
+
+netcdf.defVar(ncid,'id','NC_SHORT', p_dimID );
+netcdf.defVar(ncid,'releaseDate','NC_FLOAT', p_dimID );
 
 netcdf.endDef(ncid)
 
