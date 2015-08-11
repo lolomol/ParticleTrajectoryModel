@@ -38,13 +38,16 @@ v=zeros(1,p.np);
 ncidu = netcdf.open(ufile,'NOWRITE') ;
 ncidv = netcdf.open(vfile,'NOWRITE') ;
 
-for k=1:p.np
-    u(k) = netcdf.getVar( ncidu , 3 , [i(k),j(k),t] , [1,1,1] );
-    v(k) = netcdf.getVar( ncidv , 3 , [i(k),j(k),t] , [1,1,1] );
-end
+U   = netcdf.getVar( ncidu , 3 , [0,0,t] , [length(lon),length(lat),1] );
+V   = netcdf.getVar( ncidv , 3 , [0,0,t] , [length(lon),length(lat),1] );
 
 netcdf.close(ncidu)
 netcdf.close(ncidv)
+
+for k=1:p.np
+    u(k) = U(i(k),j(k));
+    v(k) = V(i(k),j(k));
+end
 
 % current scaling factor in Hycom files
 uw = settings.WindageCoeff * u;

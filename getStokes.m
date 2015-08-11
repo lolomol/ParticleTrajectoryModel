@@ -46,21 +46,26 @@ ncidhs = netcdf.open(hsfile,'NOWRITE') ;
 ncidtp = netcdf.open(tpfile,'NOWRITE') ;
 nciddp = netcdf.open(dpfile,'NOWRITE') ;
 
+HS   = netcdf.getVar( ncidhs , 3 , [0,0,t] , [length(lon),length(lat),1] );
+TP   = netcdf.getVar( ncidtp , 3 , [0,0,t] , [length(lon),length(lat),1] );
+DP   = netcdf.getVar( nciddp , 3 , [0,0,t] , [length(lon),length(lat),1] );
+
+% scaling factor in Wavedata files
+HS=double(HS)/100;
+TP=double(TP)/100;
+DP=double(DP)/100;
+
 for k=1:p.np
-    hs(k) = netcdf.getVar( ncidhs , 3 , [i(k),j(k),t] , [1,1,1] );
-    tp(k) = netcdf.getVar( ncidtp , 3 , [i(k),j(k),t] , [1,1,1] );
-    dp(k) = netcdf.getVar( nciddp , 3 , [i(k),j(k),t] , [1,1,1] );
-    z(k) = - settings.bathymetry.d(id(k)+1,jd(k)+1); % depth positive down
+    hs(k) = HS(i(k),j(k));
+    tp(k) = TP(i(k),j(k));
+    dp(k) = DP(i(k),j(k));
+    z(k) = - settings.bathymetry.d(id(k),jd(k)); % depth positive down
 end
 
 netcdf.close(ncidhs)
 netcdf.close(ncidtp)
 netcdf.close(nciddp)
 
-% current scaling factor in Hycom files
-hs = hs/1000;
-tp = tp/1000;
-dp = dp/1000;
 
 % computes Stokes drift
 g = 9.81;

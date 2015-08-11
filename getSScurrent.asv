@@ -103,8 +103,8 @@ for k=1:p.np
     uje(k) = U( i(k)  ,je(k) );
     vje(k) = V( i(k)  ,je(k) );
 
-    udt(k) = Udt( i(k)  ,j(k) );
-    vdt(k) = Vdt( i(k)  ,j(k) );
+    udt(k) = U ( i(k)  ,j(k) );
+    vdt(k) = V( i(k)  ,j(k) );
     
     
     % !! need to presave distances !

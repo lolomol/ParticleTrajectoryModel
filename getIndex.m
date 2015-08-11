@@ -7,5 +7,3 @@ function index=getIndex(x,X)
 
 tmp = abs( repmat(x,length(X),1) - repmat(X,1,length(x)) );
 [c index] = min(tmp);
-
-index = index -1; % netcdf convention starts at 0

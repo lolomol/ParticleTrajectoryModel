@@ -17,8 +17,8 @@ lat_new = p.lat + dlat;
 lon_new = mod(lon_new,360);
 
 % Check for coastlines 
-id = getIndex(lon_new,settings.landmass.lon) +1;
-jd = getIndex(lat_new,settings.landmass.lat) +1;
+id = getIndex(lon_new,settings.landmass.lon) ;
+jd = getIndex(lat_new,settings.landmass.lat) ;
 
 land  = zeros(1,p.np);
 

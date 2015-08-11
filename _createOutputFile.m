@@ -4,11 +4,13 @@ function createOutputFile ( p, settings)
 % -------------
 %
 
-ncid = netcdf.create(settings.OutputFilename,'CLOBBER');
+filename = [settings.OutputFilename settings.UNSD '.nc'];
+
+ncid = netcdf.create(filename,'CLOBBER');
 
 p_dimID = netcdf.defDim(ncid,'x',p.np);
 
-time = settings.initDate : settings.outputTimestep : settings.finalDate;
+time = settings.initDate : settings.TimeAdvectDir* settings.outputTimestep : settings.finalDate;
 
 time_dimID = netcdf.defDim(ncid,'time',length(time));
 
