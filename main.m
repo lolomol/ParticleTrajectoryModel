@@ -1,29 +1,10 @@
 clear;
 
 loadSettings;
+p = loadParticles( settings );
 
-% for country=24%1:length(settings.UNSDlist)
-%     
-%     settings.UNSD = num2str( settings.UNSDlist(country) );
-    
-    settings.date = settings.initDate;
-    settings.outputDate = settings.initDate;
-    settings.outputDateList = settings.initDate : settings.TimeAdvectDir* settings.outputTimestep : settings.finalDate;
-    
-%     try
-        p = loadParticles( settings );
-%     catch
-%         disp(['error loading particles source for UNSD ' settings.UNSD ' - Skipping'])
-%         continue
-%     end
-%     
-    LON=zeros( length(settings.outputDateList) ,p.np);
-    LAT=zeros( length(settings.outputDateList) ,p.np);
-    
-    [LON,LAT] = storeOutput( LON, LAT, p, settings);
-
-%     createOutputFile( p, settings )
-%     writeOutput ( p, settings) 
+disp(['store output at ' datestr(settings.date)])
+p = storeOutput( p, settings);
 
      tic
     while settings.date ~= settings.finalDate % !! (settings.finalDate-settings.initDate)/settings.modelTimestep must be integer !!
@@ -40,11 +21,19 @@ loadSettings;
         end
 
         if settings.ForcingWind
-            [uw,vw] = getWindage( p, settings );
+            try 
+                [uw,vw] = getWindage( p, settings );
+            catch
+                disp(['Could not find wind data - no windage at ' datestr(settings.date)])
+            end
         end
 
         if settings.ForcingWaves
-            [us,vs] = getStokes( p, settings );
+            try
+                [us,vs] = getStokes( p, settings );
+            catch
+                disp(['Could not find wave data - no stokes drift at ' datestr(settings.date)])
+            end
         end
 
         if settings.ForcingDiffusion
@@ -63,10 +52,8 @@ loadSettings;
 
         if settings.date == settings.outputDate + settings.TimeAdvectDir*  settings.outputTimestep
             settings.outputDate = settings.date;
-             disp(['store output at ' datestr(settings.date)])
-%             writeOutput ( p, settings) 
-            [LON,LAT] = storeOutput( LON, LAT, p, settings);
-%             disp('done')
+            disp(['store output at ' datestr(settings.date)])
+            p = storeOutput( p, settings);
             plotParticles ( p, settings)
         end
 
@@ -77,6 +64,4 @@ loadSettings;
      
      
     toc
-
-% end
 

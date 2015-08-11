@@ -13,11 +13,5 @@ p.np = length(p.id);
 
 netcdf.close(ncid)
 
-
-% single release
-% p.id=1:2;
-% p.lon=ones(1,2)*180;
-% p.lat=ones(1,2)*0;
-% p.releaseDate = ones(1,2)*0;
-% 
-% p.np=length(p.id);
+p.LON=zeros( length(settings.outputDateList) ,p.np);
+p.LAT=zeros( length(settings.outputDateList) ,p.np);

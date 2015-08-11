@@ -1,14 +1,13 @@
-function [LON,LAT] = storeOutput ( LON, LAT, p, settings)
+function p = storeOutput ( p, settings)
 
 % storeOutput
 % -------------
 %
 
+t = getIndex(settings.date, settings.outputDateList);
 
-t = getIndex(settings.date, settings.outputDateList');
-
-LON(t,:) = p.lon;
-LAT(t,:) = p.lat;
+p.LON(t,:) = p.lon;
+p.LAT(t,:) = p.lat;
 
 
  

@@ -4,8 +4,7 @@ function writeOutput ( p, settings)
 % -------------
 %
 
-
-ncid = netcdf.open(settings.OutputFilename,'WRITE');
+ncid = netcdf.create(settings.OutputFilename,'CLOBBER');
 
 p_dimID = netcdf.defDim(ncid,'x',p.np);
 time_dimID = netcdf.defDim(ncid,'time',length(settings.outputDateList));
@@ -20,15 +19,12 @@ netcdf.defVar(ncid,'unsd','NC_SHORT', p_dimID );
 
 netcdf.endDef(ncid)
 
-
-
-netcdf.putVar(ncid, 0, settings.dateOutput)
-netcdf.putVar(ncid, 1, LON)
-netcdf.putVar(ncid, 2, LAT)
+netcdf.putVar(ncid, 0, settings.outputDateList)
+netcdf.putVar(ncid, 1, p.LON)
+netcdf.putVar(ncid, 2, p.LAT)
 netcdf.putVar(ncid, 3, p.id)
 netcdf.putVar(ncid, 4, p.releaseDate)
 netcdf.putVar(ncid, 4, p.UNSD)
-
 
 netcdf.close(ncid)
 
