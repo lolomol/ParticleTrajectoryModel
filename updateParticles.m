@@ -13,22 +13,28 @@ dlat = m2lat(dy,p.lat);
 lon_new = p.lon + dlon;
 lat_new = p.lat + dlat;
 
+
 % Greenwich meridian
 lon_new = mod(lon_new,360);
+
+% North Pole
+lat_new(lat_new>90)=90;
 
 % Check for coastlines 
 id = getIndex(lon_new,settings.grid.lon) ;
 jd = getIndex(lat_new,settings.grid.lat) ;
 
-land  = zeros(1,p.np);
-for k=1:p.np 
+land=zeros(p.np,1);
+for k=1:p.np
     land(k) = settings.grid.land(id(k),jd(k));
 end
 
-lat_new(land==1) = p.lat(land==1);
-lon_new(land==1) = p.lon(land==1);
+[lon_new, lat_new] = treatShoreline(p, settings, dlon, dlat, id, jd,...
+                                        lon_new, lat_new, land);
+     
 
-% Check for release dates
+
+% Check for release dates- dont update unreleased particles
 lat_new(p.releaseDate > settings.date) = p.lat(p.releaseDate > settings.date);
 lon_new(p.releaseDate > settings.date) = p.lon(p.releaseDate > settings.date);
 

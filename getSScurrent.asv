@@ -37,7 +37,7 @@ ie  =mod(i+1-1,length(lon))+1;
 js  =mod(j-1-1,length(lat))+1;
 je  =mod(j+1-1,length(lat))+1;
 tdt =min(t+1,length(time) -1); % netcdf index starts at 0
-if tdt==t; tdt = t-1; end % backward scheme for last time step
+if tdt==t; tdt = t-1;
 
 uij=zeros(1,p.np);
 vij=zeros(1,p.np);
@@ -107,6 +107,8 @@ end
 
 dt      = abs(time(tdt+1)-time(t+1)) * 24 *3600;
 
+if dt==0
+
 ux = (uie - uis) / dx;
 uy = (uje - ujs) / dy;
 vx = (vie - vis) / dx;
@@ -126,4 +128,6 @@ if max(sqrt(u.^2+v.^2))>10
     disp('velocities > 10m/s')
 end
 
-
+if isnan(max(u))
+    dude
+end

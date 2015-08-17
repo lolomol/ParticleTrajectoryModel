@@ -45,8 +45,9 @@ end
 % p.UNSD(p.lat<-10 | p.lat>-5)=[];
 % p.lat(p.lat<-10 | p.lat>-5)=[];
 
-% p.releaseDate=p.releaseDate*0;
-% p.np=length(p.id);
+
+p.releaseDate=p.releaseDate*0;
+p.np=length(p.id);
 
 
 p.LON=zeros( length(settings.outputDateList) ,p.np);

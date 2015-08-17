@@ -1,8 +1,8 @@
 clear;
 
-initYear = 2000;
+initYear = 2012;
 
-for currentYear = 2000:2014
+for currentYear = 2012
     
     loadSettings;
     p = loadParticles( settings );
@@ -48,7 +48,7 @@ for currentYear = 2000:2014
         dt = settings.modelTimestep;
         dx = settings.TimeAdvectDir *( u*dt + us*dt + uw*dt + Dx );
         dy = settings.TimeAdvectDir *( v*dt + vs*dt + vw*dt + Dy );
-
+        
         p = updateParticles( p, dx, dy, settings);
         
         % update time

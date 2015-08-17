@@ -74,13 +74,13 @@ Lo = g * tp.^2 / (2*pi); % deepwater wave length
 
 alpha = 4*pi^2 * z./ (g * tp.^2 );
 
-alpha(alpha<=0) = NaN; % treat only water cells
+alpha(alpha<0) = NaN; % treat only water cells
 
 L = Lo.* ( tanh( alpha.^(3/4) ) ).^(2/3); % wave length
 
 VelS = 4*pi^2 * ((hs.^2)./ ( L.*tp )); % stokes drift velocity
 
-VelS(tp==0)=0; % no stokes without wave period
+VelS(L==0)=0; % no stokes without wave length
 
 VelS( isnan(VelS) ) = 0; % stokes drift = 0 on land
 

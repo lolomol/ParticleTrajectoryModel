@@ -30,7 +30,7 @@ end
 
 i = getIndex(pLon,lon);
 j = getIndex(pLat,lat);
-t = getIndex(settings.date,time);
+t = getIndex(settings.date,time)-1; % netcdf index starts at 0
 
 u=zeros(1,p.np);
 v=zeros(1,p.np);

@@ -24,7 +24,7 @@ netcdf.putVar(ncid, 1, p.LON)
 netcdf.putVar(ncid, 2, p.LAT)
 netcdf.putVar(ncid, 3, p.id)
 netcdf.putVar(ncid, 4, p.releaseDate)
-netcdf.putVar(ncid, 4, p.UNSD)
+netcdf.putVar(ncid, 5, p.UNSD)
 
 netcdf.close(ncid)
 

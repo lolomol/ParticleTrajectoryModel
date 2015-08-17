@@ -23,7 +23,7 @@ else
     settings.SourceFilename       = ['E:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
 end
 
-settings.OutputFilename       = ['E:\particles\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
+settings.OutputFilename       = ['E:\particles\BRAZIL_parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
 
 settings.initDate       = datenum(currentYear    ,01,01,0,0,0);
 settings.finalDate      = datenum(currentYear +1 ,01,01,0,0,0);

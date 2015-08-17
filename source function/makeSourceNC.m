@@ -2,7 +2,7 @@ clear
 
 % settings
 
-m_particle = 100000 ; % 1 particle = 100 tonnes
+m_particle = 200000 ; % 1 particle = 100 tonnes
 r_release = 50000 ; % 50km release radius
 dx_hycom = 0.08 ; %hycom model resolution in degrees
 
@@ -18,7 +18,7 @@ ID = dlmread('unsdcode.ascii',' ',6,0);
 ID=flipud(ID)';
 ID(1441,:)=[]; % no repeat at 360
 
-ncid=netcdf.open('HYCOM_landmass.nc','NOWRITE');
+ncid=netcdf.open('../../../grid/HYCOM_grid_expt19.nc','NOWRITE');
 LON=netcdf.getVar(ncid,0);
 LAT=netcdf.getVar(ncid,1);
 LAND=netcdf.getVar(ncid,2);
@@ -40,7 +40,7 @@ clear NUM TXT RAW
 %--------------------------------------------------------------------------
 
 % loop through countries
-for k=151:length(unsd_list)
+for k=1:length(unsd_list)
     
     if isnan(unsd_list(k)); continue; end
     
@@ -60,7 +60,7 @@ for k=151:length(unsd_list)
 
     
     % loop trough years
-    for year=1990:2015
+    for year=1990:2012
         
         % get country's population growth rate from 1990 to current year
         y1 = floor((year-1990)/5) +1;
@@ -110,6 +110,7 @@ for k=151:length(unsd_list)
                 land_subset = LAND(i_s+1:i_e+1,j_s+1:j_e+1);
                 [il,jl]=find(land_subset==0);
                 
+                if isempty(il); continue; end
                 % choose random location in random water cell
                 R1 = ceil(rand * length(il));
                 tmp_lon = LON( i_s + il(R1)) + (rand*2-1) *dx_hycom/2;
@@ -128,7 +129,7 @@ for k=151:length(unsd_list)
         end
         
        % write NETCDF source file
-       ncfile=['../../source_nc/parts_source_' num2str(year) '_' num2str(country) '.nc'];
+       ncfile=['../../sources_nc/parts_source_' num2str(year) '_' num2str(country) '.nc'];
        ncid = netcdf.create(ncfile,'CLOBBER');
        netcdf.putAtt(ncid,netcdf.getConstant('NC_GLOBAL'),'unsd',country);
        p_dimID = netcdf.defDim(ncid,'x',np);

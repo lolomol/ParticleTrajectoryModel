@@ -9,7 +9,7 @@ function plotParticles ( p, settings)
 
 % contour(settings.landmass.lon,settings.landmass.lat,settings.landmass.data',[1 1],'k')
 % hold on
-plot(p.lon(p.releaseDate < settings.date),p.lat(p.releaseDate < settings.date),'.k')
+plot(p.lon(p.releaseDate < settings.date),p.lat(p.releaseDate < settings.date),'.k','markersize',1)
 % plot(p.lon(p.releaseDate >= settings.date),p.lat(p.releaseDate >= settings.date),'.b','markersize',1)
 % hold off
 
