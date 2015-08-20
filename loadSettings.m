@@ -1,29 +1,29 @@
 
 
-settings.SScurrentPath        = 'E:\hycom\';
+settings.SScurrentPath        = 'C:\Users\lolo\Documents\TheOceanCleanup\hycom\';
 
 if currentYear>2007
-    settings.StokesPath           = 'E:\wavewatch3\MMAB\';
+    settings.StokesPath           = 'C:\Users\lolo\Documents\TheOceanCleanup\wavewatch3\MMAB\';
 else
-    settings.StokesPath           = 'E:\wavewatch3\CFSR\';
+    settings.StokesPath           = 'C:\Users\lolo\Documents\TheOceanCleanup\wavewatch3\CFSR\';
 end
 
-settings.WindagePath          = 'E:\gfs\';
-settings.StokesBathyFilename  = 'E:\etopo2\ETOPO2_0.5.nc';
+settings.WindagePath          = 'C:\Users\lolo\Documents\TheOceanCleanup\gfs\';
+settings.StokesBathyFilename  = 'C:\Users\lolo\Documents\TheOceanCleanup\etopo2\ETOPO2_0.5.nc';
 
 if currentYear>2012
-    settings.GridFilename         = 'E:\grid\HYCOM_grid.nc';
+    settings.GridFilename         = 'C:\Users\lolo\Documents\TheOceanCleanup\grid\HYCOM_grid.nc';
 else
-    settings.GridFilename         = 'E:\grid\HYCOM_grid_expt19.nc';
+    settings.GridFilename         = 'C:\Users\lolo\Documents\TheOceanCleanup\grid\HYCOM_grid_expt19.nc';
 end
 
 if currentYear == initYear
-    settings.SourceFilename       = ['E:\model\sources_nc\parts_source_' num2str(initYear) '.nc'];
+    settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\sources_nc\parts_source_' num2str(initYear) '.nc'];
 else
-    settings.SourceFilename       = ['E:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
+    settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
 end
 
-settings.OutputFilename       = ['E:\particles\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
+settings.OutputFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\particles\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
 
 settings.initDate       = datenum(currentYear    ,01,01,0,0,0);
 settings.finalDate      = datenum(currentYear +1 ,01,01,0,0,0);
