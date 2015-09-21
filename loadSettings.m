@@ -20,15 +20,15 @@ else
 end
 
 %% Particle source file
-
-if currentYear == initYear % source file
-    settings.SourceFilename       = ['F:\sources_nc\parts_source_' num2str(initYear) '.nc'];
-else % hot start
-    settings.SourceFilename       = ['F:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
-end
+ settings.SourceFilename       = 'F:\demo\parts_source_demo.nc';
+% if currentYear == initYear % source file
+%     settings.SourceFilename       = ['F:\sources_nc\parts_source_' num2str(initYear) '.nc'];
+% else % hot start
+%     settings.SourceFilename       = ['F:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
+% end
 
 %% Output File
-settings.OutputFilename       = ['F:\particles\try\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
+settings.OutputFilename       = ['F:\particles\try\demo_' num2str(currentYear) '_' num2str(initYear) '.nc'];
 
 %% Time parameters
 settings.initDate       = datenum(currentYear    ,01,01,0,0,0);
