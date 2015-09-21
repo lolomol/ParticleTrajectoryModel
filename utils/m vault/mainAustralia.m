@@ -1,10 +1,10 @@
 clear;
 
-initYear = 2012;
 
-for currentYear = 2012
+for currentYear = 2007:2011
+    for currentMonth=1:12
     
-    loadSettings;
+    loadSettingsAustralia;
     p = loadParticles( settings );
     
     disp(['store output at ' datestr(settings.date)])
@@ -32,6 +32,12 @@ for currentYear = 2012
             end
         end
         
+        if settings.date>=datenum(2008,1,1,0,0,0)
+            settings.StokesPath           = 'F:\wavewatch3\MMAB\';
+        else
+            settings.StokesPath           = 'F:\wavewatch3\CFSR\';
+        end
+        
         if settings.ForcingWaves
             try
                 [us,vs] = getStokes( p, settings );
@@ -48,7 +54,7 @@ for currentYear = 2012
         dt = settings.modelTimestep;
         dx = settings.TimeAdvectDir *( u*dt + us*dt + uw*dt + Dx );
         dy = settings.TimeAdvectDir *( v*dt + vs*dt + vw*dt + Dy );
-        
+
         p = updateParticles( p, dx, dy, settings);
         
         % update time
@@ -68,5 +74,6 @@ for currentYear = 2012
     
     
     toc
+    end
     
 end

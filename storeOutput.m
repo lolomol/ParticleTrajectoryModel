@@ -4,6 +4,8 @@ function p = storeOutput ( p, settings)
 % -------------
 %
 
+disp(['store output at ' datestr(settings.date)])
+
 t = getIndex(settings.date, settings.outputDateList);
 
 p.LON(t,:) = p.lon;

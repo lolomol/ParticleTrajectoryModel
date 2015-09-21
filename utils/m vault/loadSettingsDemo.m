@@ -1,5 +1,3 @@
-
-
 settings.SScurrentPath        = 'E:\demo\';
 settings.StokesPath           = 'E:\demo\';
 settings.WindagePath          = 'E:\demo\';
@@ -19,9 +17,9 @@ settings.ForcingWind      = true;
 settings.ForcingWaves     = true;
 settings.ForcingDiffusion = true;
 
-settings.WindageCoeff   = 0.01; % windage = 1.5%
-settings.EddyDiffusivity= 0.1; % m2/s
-settings.TimeAdvectDir    = 1; % =1 normal, -1 reverse dispersal
+settings.WindageCoeff     = 0.01; % windage = 1%
+settings.EddyDiffusivity  = 0.1 ; % m2/s
+settings.TimeAdvectDir    = 1   ; % =1 normal, -1 reverse dispersal
 
 
 

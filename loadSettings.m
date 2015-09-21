@@ -1,48 +1,51 @@
 
+%% Sea Surface Current
+settings.SScurrentPath        = 'F:\hycom\';
+settings.SScurrentTimeOrigin = datenum(2000,12,31,0,0,0);
 
-settings.SScurrentPath        = 'C:\Users\lolo\Documents\TheOceanCleanup\hycom\';
+%% Sea Surface wind
+settings.WindagePath          = 'F:\gfs\';
+settings.WindageTimeOrigin = datenum(1800,01,01,0,0,0);
 
-if currentYear>2007
-    settings.StokesPath           = 'C:\Users\lolo\Documents\TheOceanCleanup\wavewatch3\MMAB\';
+%% Stokes drift
+settings.StokesPath           = 'F:\wavewatch3\MMAB\';
+settings.StokesBathyFilename  = 'F:\etopo2\ETOPO2_0.5.nc';
+settings.StokesTimeOrigin = datenum(2000,12,31,0,0,0);
+
+%% Grid file
+if currentYear>2012 % different hycom grid file depending on experiments
+    settings.GridFilename         = 'F:\grid\HYCOM_grid.nc';
 else
-    settings.StokesPath           = 'C:\Users\lolo\Documents\TheOceanCleanup\wavewatch3\CFSR\';
+    settings.GridFilename         = 'F:\grid\HYCOM_grid_expt19.nc';
 end
 
-settings.WindagePath          = 'C:\Users\lolo\Documents\TheOceanCleanup\gfs\';
-settings.StokesBathyFilename  = 'C:\Users\lolo\Documents\TheOceanCleanup\etopo2\ETOPO2_0.5.nc';
+%% Particle source file
 
-if currentYear>2012
-    settings.GridFilename         = 'C:\Users\lolo\Documents\TheOceanCleanup\grid\HYCOM_grid.nc';
-else
-    settings.GridFilename         = 'C:\Users\lolo\Documents\TheOceanCleanup\grid\HYCOM_grid_expt19.nc';
+if currentYear == initYear % source file
+    settings.SourceFilename       = ['F:\sources_nc\parts_source_' num2str(initYear) '.nc'];
+else % hot start
+    settings.SourceFilename       = ['F:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
 end
 
-if currentYear == initYear
-    settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\sources_nc\parts_source_' num2str(initYear) '.nc'];
-else
-    settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
-end
+%% Output File
+settings.OutputFilename       = ['F:\particles\try\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
 
-settings.OutputFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\particles\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
-
+%% Time parameters
 settings.initDate       = datenum(currentYear    ,01,01,0,0,0);
 settings.finalDate      = datenum(currentYear +1 ,01,01,0,0,0);
-settings.modelTimestep  = datenum(0,0,0,6,0,0)  *24 *3600 ; %in sec
+settings.modelTimestep  = datenum(0,0,0,12,0,0)  *24 *3600 ; %in sec
 settings.outputTimestep = datenum(0,0,0,12,0,0);
 
+%% Forcing constituents paramaters
 settings.ForcingCurrent   = true;
 settings.ForcingWind      = true;
 settings.ForcingWaves     = true;
 settings.ForcingDiffusion = true;
 
-settings.WindageCoeff   = 0.01; % windage = 1.5%
+%% Model parameters
+settings.WindageCoeff   = 0.02; % windage = 1.5%
 settings.EddyDiffusivity= 0.1; % m2/s
 settings.TimeAdvectDir    = 1; % =1 normal, -1 reverse dispersal
-
-
-
-
-
 
 
 

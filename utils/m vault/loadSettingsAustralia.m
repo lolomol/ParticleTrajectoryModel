@@ -1,33 +1,31 @@
 
 
-settings.SScurrentPath        = 'E:\hycom\';
+settings.SScurrentPath        = 'F:\hycom\';
 
 if currentYear>2007
-    settings.StokesPath           = 'E:\wavewatch3\MMAB\';
+    settings.StokesPath           = 'F:\wavewatch3\MMAB\';
 else
-    settings.StokesPath           = 'E:\wavewatch3\CFSR\';
+    settings.StokesPath           = 'F:\wavewatch3\CFSR\';
 end
 
-settings.WindagePath          = 'E:\gfs\';
-settings.StokesBathyFilename  = 'E:\etopo2\ETOPO2_0.5.nc';
+settings.WindagePath          = 'F:\gfs\';
+settings.StokesBathyFilename  = 'F:\etopo2\ETOPO2_0.5.nc';
 
 if currentYear>2012
-    settings.GridFilename         = 'E:\grid\HYCOM_grid.nc';
+    settings.GridFilename         = 'F:\grid\HYCOM_grid.nc';
 else
-    settings.GridFilename         = 'E:\grid\HYCOM_grid_expt19.nc';
+    settings.GridFilename         = 'F:\grid\HYCOM_grid_expt19.nc';
 end
 
-if currentYear == initYear
-    settings.SourceFilename       = ['E:\model\sources_nc\parts_source_' num2str(initYear) '.nc'];
-else
-    settings.SourceFilename       = ['E:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
-end
 
-settings.OutputFilename       = ['E:\particles\BRAZIL_parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
+settings.SourceFilename       = 'F:\sources_nc\Australia_source.nc';
 
-settings.initDate       = datenum(currentYear    ,01,01,0,0,0);
-settings.finalDate      = datenum(currentYear +1 ,01,01,0,0,0);
-settings.modelTimestep  = datenum(0,0,0,6,0,0)  *24 *3600 ; %in sec
+
+settings.OutputFilename       = ['F:\particles\Australia\Australia_parts_' num2str(currentYear) '_' num2str(currentMonth) '_day15.nc'];
+
+settings.initDate       = datenum(currentYear  ,currentMonth,15,0,0,0);
+settings.finalDate      = datenum(currentYear  ,currentMonth+4,15,0,0,0);
+settings.modelTimestep  = datenum(0,0,0,12,0,0)  *24 *3600 ; %in sec
 settings.outputTimestep = datenum(0,0,0,12,0,0);
 
 settings.ForcingCurrent   = true;
@@ -35,7 +33,7 @@ settings.ForcingWind      = true;
 settings.ForcingWaves     = true;
 settings.ForcingDiffusion = true;
 
-settings.WindageCoeff   = 0.01; % windage = 1.5%
+settings.WindageCoeff   = 0.001; % windage = 1.5%
 settings.EddyDiffusivity= 0.1; % m2/s
 settings.TimeAdvectDir    = 1; % =1 normal, -1 reverse dispersal
 
