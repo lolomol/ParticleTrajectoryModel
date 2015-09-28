@@ -82,7 +82,7 @@ alpha(alpha<=0) = NaN; % treat only water cells
 
 L = Lo.* ( tanh( alpha.^(3/4) ) ).^(2/3); % wave length
 
-VelS = 4*pi^2 * ((hs.^2)./ ( L.*tp )); % stokes drift velocity
+VelS = 0.5*pi^2 * ((hs.^2)./ ( L.*tp )); % stokes drift velocity
 
 VelS(tp==0)=0; % no stokes without wave period
 

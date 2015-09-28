@@ -31,24 +31,6 @@ else % source file
     netcdf.close(ncid)
 end
 
-
-% 
-% p.id(p.UNSD~=76)=[];
-% p.lon(p.UNSD~=76)=[];
-% p.lat(p.UNSD~=76)=[];
-% p.releaseDate(p.UNSD~=76)=[];
-% p.UNSD(p.UNSD~=76)=[];
-% 
-% p.id(p.lat<-10 | p.lat>-5)=[];
-% p.lon(p.lat<-10 | p.lat>-5)=[];
-% p.releaseDate(p.lat<-10 | p.lat>-5)=[];
-% p.UNSD(p.lat<-10 | p.lat>-5)=[];
-% p.lat(p.lat<-10 | p.lat>-5)=[];
-
-% p.releaseDate=p.releaseDate*0;
-% p.np=length(p.id);
-
-
 p.LON=zeros( length(settings.outputDateList) ,p.np);
 p.LAT=zeros( length(settings.outputDateList) ,p.np);
 
