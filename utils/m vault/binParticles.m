@@ -1,4 +1,4 @@
-filename = 'F:\particles\try\UniformSource_2005.nc';
+filename = 'F:\particles\try\UniformSource_lowstokes_1pWindage_2005.nc';
 
 ncid = netcdf.open(filename,'NOWRITE');
 time = netcdf.getVar(ncid,0);
@@ -26,3 +26,8 @@ C=C/np/nt;
 
 figure
 pcolor(LON,LAT,log10(C)); shading flat 
+caxis([-8 -4]); axis image
+
+figure
+pcolor(LON,LAT,log10(C4)-log10(C0)); shading flat 
+caxis([-1 1]); axis image
