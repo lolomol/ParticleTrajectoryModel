@@ -15,6 +15,7 @@ outputName = 'regional_age_windage0.1';
 %% No edit past this point
 
 regionName={
+            'World'
             'NorthAmerica'
             'CentralAmerica'
             'SouthAmerica'
@@ -30,6 +31,7 @@ regionName={
             'AustraliaPacific'
             };
 region={
+        [] % World
         [124,840] % NorthAmerica
         [316,630,484,84,222,320,340,558,188,591,44,52,192,214,312,332,388,474,780] % CentralAmerica
         [32,76,152,170,218,328,530,604,740,858,862] % SouthAmerica
@@ -73,7 +75,7 @@ for k=1:length(regionName)
 
             for t = 1 : nt
                 for p = 1 : np
-                    if sum(unsd(p)==region{k})>0 && rdate(p)<time(t) && rdate(p)>0
+                    if k==1 || (sum(unsd(p)==region{k})>0 && rdate(p)<time(t) && rdate(p)>0)
                         i = round(lat(t,p)/dx) + 90/dx + 1;
                         j = round(lon(t,p)/dx) + 1;
                         C(i,j) = C(i,j) + 1;
@@ -87,7 +89,7 @@ for k=1:length(regionName)
     end
     
     regionAnalysis(k).Name = regionName{k};
-    regionAnalysis(k).A    = A;
+    regionAnalysis(k).A    = A./C;
     regionAnalysis(k).B    = B;
     regionAnalysis(k).C    = C;
     

@@ -6,8 +6,9 @@
 % C total particle count
 
 
-inputPath  = 'G:\particles\windage 0.1';
-outputPath = 'G:\work\age_analysis';
+inputPath  = 'G:\particles\windage 0.1\';
+outputPath = 'G:\work\age_analysis\';
+outputName = 'regional_age_windage0.1';
 
 
 
@@ -47,17 +48,17 @@ region={
 dx=0.1;
 [LON,LAT] = meshgrid(0:dx:360,-90:dx:90);
 
-regionAnalysis
+regionAnalysis=[];
 
-for i=1:length(regionName)
+for k=1:length(regionName)
     C=zeros(size(LON));
     A=zeros(size(LON));
     B=zeros(size(LON))+10e9;
 
     for initYear = 1993:2014
+        disp([regionName{k} ' : ' num2str(initYear)])
         for currentYear = initYear:2014
-            disp([num2str(currentYear) '_' num2str(initYear)])
-
+            
             filename = [ inputPath 'parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
             ncid = netcdf.open(filename,'NOWRITE');
             time = netcdf.getVar(ncid,0);
@@ -72,7 +73,7 @@ for i=1:length(regionName)
 
             for t = 1 : nt
                 for p = 1 : np
-                    if sum(unsd(p)==region{i})>0 && rdate(p)<time(t) && rdate(p)>0
+                    if sum(unsd(p)==region{k})>0 && rdate(p)<time(t) && rdate(p)>0
                         i = round(lat(t,p)/dx) + 90/dx + 1;
                         j = round(lon(t,p)/dx) + 1;
                         C(i,j) = C(i,j) + 1;
@@ -85,8 +86,13 @@ for i=1:length(regionName)
         end
     end
     
+    regionAnalysis(k).Name = regionName{k};
+    regionAnalysis(k).A    = A./C;
+    regionAnalysis(k).B    = B;
+    regionAnalysis(k).C    = C;
+    
 end
 
 
 
-save([regionName '_2004_2014.mat'],'A','B','C','LAT','LON')
+save([outputPath outputName '.mat'],'regionAnalysis')
