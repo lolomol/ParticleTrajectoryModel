@@ -6,9 +6,9 @@
 % C total particle count
 
 
-inputPath  = 'G:\particles\windage 0.1\';
+inputPath  = 'G:\particles\windage 0.5\';
 outputPath = 'G:\work\age_analysis\';
-outputName = 'regional_age_windage0.1';
+outputName = 'regional_age_windage0.5';
 
 
 
@@ -75,7 +75,7 @@ for k=1:length(regionName)
 
             for t = 1 : nt
                 for p = 1 : np
-                    if k==1 || (sum(unsd(p)==region{k})>0 && rdate(p)<time(t) && rdate(p)>0)
+                    if (k==1 && rdate(p)>0) || (sum(unsd(p)==region{k})>0 && rdate(p)<time(t) && rdate(p)>0)
                         i = round(lat(t,p)/dx) + 90/dx + 1;
                         j = round(lon(t,p)/dx) + 1;
                         C(i,j) = C(i,j) + 1;
