@@ -7,7 +7,7 @@
 tic
 clear all;
 
-path = 'G:\particles\windage 0.5';
+path = 'G:\particles\fishing windage 0.5';
 %cd /Volumes/TOC_RES_1/CPD-Macroscale/Lebreton_phase_2/4th_run_scenarios/uniform_NASA/
 
 % Computation parameters
