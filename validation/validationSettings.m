@@ -1,9 +1,9 @@
 
-sourceFolder='drogue_on/';
-
-% Drifter Trajectory file
-traj= shaperead(['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\shp\' num2str(id) '.shp']);
-k=1;
+if drogue
+    sourceFolder='drogue_on/';
+else
+    sourceFolder='drogue_off/';
+end
 
 % Sea Surface Current
 settings.SScurrentPath        = 'C:\Users\lolo\Documents\TheOceanCleanup\data\hycom\';
@@ -22,14 +22,24 @@ settings.StokesTimeOrigin = datenum(2000,12,31,0,0,0);
 settings.GridFilename         = 'C:\Users\lolo\Documents\TheOceanCleanup\data\grid\HYCOM_grid_expt19.nc';
 
 % Particle source file
-settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\sources_nc\' sourceFolder 'sources_drifter_' num2str(id) '_' num2str(k) '.nc'];
+settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\sources_nc\' sourceFolder 'sources_drifter_' num2str(id) '.nc'];
 
 % Output File
-settings.OutputFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\modelled\' sourceFolder 'parts_drifter_' num2str(id) '_' num2str(k) '.nc'];
+settings.OutputFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\modelled\' sourceFolder 'parts_drifter_' num2str(id) '.nc'];
 
 %% Time parameters
-settings.initDate       = traj(k).startDate;
-settings.finalDate      = traj(k).endDate;
+startDate=10e9;
+endDate=0;
+
+for k=1:length(traj)
+    if traj(k).drogue==drogue;
+        startDate=min(traj(k).startDate,startDate);
+        endDate=max(traj(k).endDate,endDate);
+    end
+end
+
+settings.initDate       = startDate;
+settings.finalDate      = endDate;
 settings.modelTimestep  = datenum(0,0,0,12,0,0)  *24 *3600 ; %in sec
 settings.outputTimestep = datenum(0,0,1,0,0,0);
 

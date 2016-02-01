@@ -53,7 +53,7 @@ while settings.date ~= settings.finalDate % !! (settings.finalDate-settings.init
     if settings.date == settings.outputDate + settings.TimeAdvectDir*  settings.outputTimestep
         settings.outputDate = settings.date;
         p = storeOutput( p, settings);
-          %plotParticles ( p, settings)
+        plotParticles ( p, settings)
     end
     
     

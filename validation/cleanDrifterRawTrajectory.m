@@ -1,6 +1,6 @@
 load('idList.mat')
-for id = 2578%idList(1:1000)
-
+for id = idList(1:end)
+    
     % keeps only drifter of Cat = 1, 1.5 and 2
     % from lumpkin 2013
     % ftp://ftp.aoml.noaa.gov/phod/pub/lumpkin/droguedetect/
@@ -24,7 +24,7 @@ for id = 2578%idList(1:1000)
             disp('Cat > 2, not treated')
         else
             
-            load([path  'drifter_' num2str(id) '.mat'])
+            load([path  'drifter raw\drifter_' num2str(id) '.mat'])
             
             % remove duplicate time values
             [date, m, n] = unique(date);
@@ -86,7 +86,7 @@ for id = 2578%idList(1:1000)
                         traj(k).drogue=1;
                     end
                 end
-            else
+            else % Cat=2, drogue always on
                 for k=1:Ntraj
                     traj(k).drogue=1;
                 end
@@ -126,6 +126,13 @@ for id = 2578%idList(1:1000)
                 continue
             end
             
+            % keep only the longuest trajectory with OR without drogue
+            
+            for k=1:Ntraj
+                
+            end
+            
+            
             % save drifter full trajectory as shapefile
             S=[];
             for k=1:Ntraj
@@ -136,20 +143,32 @@ for id = 2578%idList(1:1000)
                 S(k).startDate = traj(k).idate(1) ;
                 S(k).endDate   = traj(k).idate(end) ;
             end
-            shapewrite(S,[ path 'shp/' num2str(id)])
+            shapewrite(S,[ path 'shp\' num2str(id)])
             
             % write NETCDF source file for subdivided trajectories
-            for k=1:Ntraj
-                
-                np = length(traj(k).rdate) * partsRelease;
-                
-                if traj(k).drogue
-                    sourceFolder='drogue_on/';
+            
+            if traj(k).drogue
+                sourceFolder='drogue_on\';
+            else
+                sourceFolder='drogue_off\';
+            end
+            
+            for drogue=0:1
+                if drogue
+                    sourceFolder='drogue_on\';
                 else
-                    sourceFolder='drogue_off/';
+                    sourceFolder='drogue_off\';
+                end
+                np=0;
+                for k=1:Ntraj
+                    if traj(k).drogue==drogue
+                        np = np + length(traj(k).rdate) * partsRelease;
+                    end
                 end
                 
-                ncfile=[ path '/sources_nc/' sourceFolder 'sources_drifter_' num2str(id) '_' num2str(k) '.nc'];
+                if np==0; continue; end
+                
+                ncfile=[ path 'sources_nc\' sourceFolder 'sources_drifter_' num2str(id) '.nc'];
                 ncid = netcdf.create(ncfile,'CLOBBER');
                 netcdf.putAtt(ncid,netcdf.getConstant('NC_GLOBAL'),'unsd',id);
                 p_dimID = netcdf.defDim(ncid,'x',np);
@@ -166,12 +185,18 @@ for id = 2578%idList(1:1000)
                 part_date = zeros(np,1);
                 part_id   = zeros(np,1);
                 
-                for s=1:length(traj(k).rdate)
-                    part_lon((s-1)*partsRelease+1: s * partsRelease) = ones(partsRelease,1)*traj(k).rlon(s);
-                    part_lat((s-1)*partsRelease+1: s * partsRelease) = ones(partsRelease,1)*traj(k).rlat(s);
-                    part_unsd((s-1)*partsRelease+1: s * partsRelease)= ones(partsRelease,1)*s;
-                    part_date((s-1)*partsRelease+1: s * partsRelease)= ones(partsRelease,1)*traj(k).rdate(s);
-                    part_id((s-1)*partsRelease+1: s * partsRelease)= ((s-1)*partsRelease+1: s * partsRelease)';
+                kk=0;
+                for k=1:Ntraj
+                    if traj(k).drogue==drogue
+                        for s=1:length(traj(k).rdate)
+                            kk=kk+1;
+                            part_lon ((kk-1)*partsRelease+1: kk * partsRelease) = ones(partsRelease,1) * traj(k).rlon(s);
+                            part_lat ((kk-1)*partsRelease+1: kk * partsRelease) = ones(partsRelease,1) * traj(k).rlat(s);
+                            part_unsd((kk-1)*partsRelease+1: kk * partsRelease) = ones(partsRelease,1) * s;
+                            part_date((kk-1)*partsRelease+1: kk * partsRelease) = ones(partsRelease,1) * traj(k).rdate(s);
+                            part_id  ((kk-1)*partsRelease+1: kk * partsRelease) = ((kk-1)*partsRelease+1 : kk*partsRelease)';
+                        end
+                    end
                 end
                 
                 netcdf.putVar(ncid, 0, int16(part_id))
@@ -181,27 +206,29 @@ for id = 2578%idList(1:1000)
                 netcdf.putVar(ncid, 4, int16(part_unsd))
                 
                 netcdf.close(ncid)
+                
             end
-            
-            
-            %         plot(lon,lat,'.k','markersize',1)
-            %         for k=1:length(traj)
-            %             if traj(k).drogue
-            %                 plot(traj(k).ilon,traj(k).ilat,'.b')
-            %                 plot(traj(k).ilon(1),traj(k).ilat(1),'ob')
-            %                 plot(traj(k).ilon(end),traj(k).ilat(end),'sb')
-            %                 plot(traj(k).rlon,traj(k).rlat,'.k')
-            %             else
-            %                 plot(traj(k).ilon,traj(k).ilat,'.r')
-            %                 plot(traj(k).ilon(1),traj(k).ilat(1),'or')
-            %                 plot(traj(k).ilon(end),traj(k).ilat(end),'sr')
-            %                 plot(traj(k).rlon,traj(k).rlat,'.k')
-            %             end
-            %         end
-            
         end
+        
+        
+        %         plot(lon,lat,'.k','markersize',1)
+        %         for k=1:length(traj)
+        %             if traj(k).drogue
+        %                 plot(traj(k).ilon,traj(k).ilat,'.b')
+        %                 plot(traj(k).ilon(1),traj(k).ilat(1),'ob')
+        %                 plot(traj(k).ilon(end),traj(k).ilat(end),'sb')
+        %                 plot(traj(k).rlon,traj(k).rlat,'.k')
+        %             else
+        %                 plot(traj(k).ilon,traj(k).ilat,'.r')
+        %                 plot(traj(k).ilon(1),traj(k).ilat(1),'or')
+        %                 plot(traj(k).ilon(end),traj(k).ilat(end),'sr')
+        %                 plot(traj(k).rlon,traj(k).rlat,'.k')
+        %             end
+        %         end
+        
     end
 end
+
 
 
 
