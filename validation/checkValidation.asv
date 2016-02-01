@@ -59,3 +59,6 @@ plot(age_,dist_25,'r')
 plot(age_,dist_50,'r','linewidth',2)
 plot(age_,dist_75,'r')
 
+xlim([0 max(age_)])
+xlabel('time (days)')
+ylabel('distance (km)')

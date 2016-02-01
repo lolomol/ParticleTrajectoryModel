@@ -1,5 +1,6 @@
+tic
 
-id=23121;
+id=27442;
 drogue=1;
 
 % Drifter Trajectory file
@@ -9,6 +10,9 @@ validationSettings
 p = loadParticles( settings );
 main(p,settings)
 checkValidation(settings,traj,drogue)
+
+toc
+
 % plotWorld
 % plot(traj(1).X,traj(1).Y,'.k')
 % 

@@ -3,7 +3,7 @@ function main(p,settings)
 
 p = storeOutput( p, settings);
 
-while settings.date ~= settings.finalDate % !! (settings.finalDate-settings.initDate)/settings.modelTimestep must be integer !!
+while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.finalDate % !! (settings.finalDate-settings.initDate)/settings.modelTimestep must be integer !!
     
     % init forcing constituents
     u=0;v=0;
@@ -53,7 +53,7 @@ while settings.date ~= settings.finalDate % !! (settings.finalDate-settings.init
     if settings.date == settings.outputDate + settings.TimeAdvectDir*  settings.outputTimestep
         settings.outputDate = settings.date;
         p = storeOutput( p, settings);
-        plotParticles ( p, settings)
+%         plotParticles ( p, settings)
     end
     
     
