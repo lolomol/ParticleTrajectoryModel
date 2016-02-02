@@ -1,6 +1,9 @@
-tic
 
-id=27442;
+for id=[3275,3276,4440,4639]
+%     for id=[2578,2611,2613,2623,2931,3274,3275,3276,4440,4639]
+
+tic
+% id=27442;
 drogue=1;
 
 % Drifter Trajectory file
@@ -9,9 +12,11 @@ traj= shaperead(['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\shp
 validationSettings
 p = loadParticles( settings );
 main(p,settings)
-checkValidation(settings,traj,drogue)
+% checkValidation(settings,traj,drogue)
 
 toc
+
+end
 
 % plotWorld
 % plot(traj(1).X,traj(1).Y,'.k')

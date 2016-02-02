@@ -25,7 +25,7 @@ settings.GridFilename         = 'C:\Users\lolo\Documents\TheOceanCleanup\data\gr
 settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\sources_nc\' sourceFolder 'sources_drifter_' num2str(id) '.nc'];
 
 % Output File
-settings.OutputFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\modelled\' sourceFolder 'parts_drifter_' num2str(id) '.nc'];
+settings.OutputFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\modelled\' sourceFolder 'stokes_windage0.1/parts_drifter_' num2str(id) '.nc'];
 
 %% Time parameters
 startDate=10e9;

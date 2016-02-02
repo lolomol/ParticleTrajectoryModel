@@ -9,9 +9,9 @@ netcdf.close(ncid)
 
 plotWorld
 
-for k=1:size(lon,2)
-   plot(lon(:,k),lat(:,k),'k') 
-end
+% for k=1:size(lon,2)
+%    plot(lon(:,k),lat(:,k),'k') 
+% end
 
 for k=1:length(traj)
     if traj(k).drogue==drogue
@@ -39,8 +39,9 @@ for k=1:length(traj)
 end
 
 
-
-age_=unique(sort(age(:)));
+age=floor(age);
+age_=unique(sort(round(age(:))));
+age_(age_<0)=[];
 dist_25=zeros(size(age_));
 dist_50=zeros(size(age_));
 dist_75=zeros(size(age_));
@@ -59,3 +60,6 @@ plot(age_,dist_25,'r')
 plot(age_,dist_50,'r','linewidth',2)
 plot(age_,dist_75,'r')
 
+xlim([0 max(age_)])
+xlabel('time (days)')
+ylabel('distance (km)')
