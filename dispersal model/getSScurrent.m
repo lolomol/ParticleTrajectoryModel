@@ -114,7 +114,7 @@ ux = (uie - uis) / (2*dx);
 uy = (uje - ujs) / (2*dy);
 vx = (vie - vis) / (2*dx);
 vy = (vje - vjs) / (2*dy);
-dt      = abs(time(tdt+1)-time(t+1)) * 24 *3600;
+dt = abs(time(tdt+1)-time(t+1)) * 24 *3600;
 ut = (udt - uij) / dt;
 vt = (vdt - vij) / dt;
 

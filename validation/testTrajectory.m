@@ -2,7 +2,7 @@ function testTrajectory(id)
 
 path='C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\';
 drogue=1;
-scenario='modelled\drogue_on\nostokes_nowindage_6h\';
+scenario='modelled\100largest_drogue_on\';
 
 traj= shaperead([path 'shp\' num2str(id) '.shp']);
 
@@ -51,17 +51,18 @@ plotWorld
 % contour(LON,LAT,log10(parts),[0 0],'k','linewidth',1)
 % contour(LON,LAT,log10(parts),[1 1],'k')
 
-for k=1:length(traj)
-    if traj(k).drogue==drogue
-        plot(traj(k).X,traj(k).Y,'.r')
-    end
-end
 
 for k=1:size(lon,2)/10
     
     i=find(dist_((k-1)*10+1:k*10)==min(dist_((k-1)*10+1:k*10)));
     plot(lon(:,(k-1)*10+i),lat(:,(k-1)*10+i))
     
+end
+
+for k=1:length(traj)
+    if traj(k).drogue==drogue
+        plot(traj(k).X,traj(k).Y,'.r')
+    end
 end
 
 
