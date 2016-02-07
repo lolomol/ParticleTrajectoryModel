@@ -3,6 +3,16 @@ function extractForcing
 settings.SScurrentPath  = 'C:\Users\lolo\Documents\TheOceanCleanup\data\hycom\';
 settings.SScurrentTimeOrigin = datenum(2000,12,31,0,0,0);
 
+settings.GridFilename         = 'C:\Users\lolo\Documents\TheOceanCleanup\data\grid\HYCOM_grid_expt19.nc';
+% load grid data
+ncid=netcdf.open(settings.GridFilename,'NOWRITE');
+settings.grid.lon = netcdf.getVar(ncid,0);
+settings.grid.lat = netcdf.getVar(ncid,1);
+settings.grid.land= netcdf.getVar(ncid,2);
+settings.grid.dx  = netcdf.getVar(ncid,3);
+settings.grid.dy  = netcdf.getVar(ncid,4);
+netcdf.close(ncid)
+
 
 files=dir('C:\Users\lolo\Documents\TheOceanCleanup\data\globaldrifter\shp\*.shp');
 drogue=1;
@@ -60,11 +70,11 @@ date(date<datenum(1993,1,1,0,0,0))=[];
 % retrieve UV model
 u = zeros(Nstations,1);
 v = zeros(Nstations,1);
-date_unique=unique(date);
+date_unique=unique(date_);
 
 for t=1:length(date_unique)
     disp(t/length(date_unique))
-    ind=find(date==date_unique(t));
+    ind=find(date_==date_unique(t));
     settings.date=date_unique(t);
     p.np=length(ind);
     p.lon=lon(ind)';
