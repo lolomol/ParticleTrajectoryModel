@@ -2,21 +2,23 @@
 % clear all
 % load('drogue_comparison.mat')
 
-% filename= 'ModelledVSMeasured_DrogueON_current.png';
+%% Plot regression
+
+% filename= 'ModelledVSMeasured_DrogueOFF_current.png';
 % [theta,vel] = cart2pol(u,v);
-% filename= 'ModelledVSMeasured_DrogueON_currentstokes.png';
+% filename= 'ModelledVSMeasured_DrogueOFF_currentstokes.png';
 % [theta,vel] = cart2pol(u+us,v+vs);
-filename= 'ModelledVSMeasured_DrogueON_currentstokeswind0.1.png';
-[theta,vel] = cart2pol(u+us+0.1*uw,v+vs+0.1*vw);
-% filename= 'ModelledVSMeasured_DrogueON_currentstokeswind0.5.png';
-% [theta,vel] = cart2pol(u+us+0.5*uw,v+vs+0.5*vw);
-% filename= 'ModelledVSMeasured_DrogueON_currentstokeswind1.png';
+% filename= 'ModelledVSMeasured_DrogueOFF_currentstokeswind0.1.png';
+% [theta,vel] = cart2pol(u+us+0.1*uw,v+vs+0.1*vw);
+filename= 'ModelledVSMeasured_DrogueOFF_currentstokeswind0.6.png';
+[theta,vel] = cart2pol(u+us+0.6*uw,v+vs+0.6*vw);
+% filename= 'ModelledVSMeasured_DrogueOFF_currentstokeswind1.png';
 % [theta,vel] = cart2pol(u+us+1*uw,v+vs+1*vw);
-% filename= 'ModelledVSMeasured_DrogueON_currentstokeswind2.png';
+% filename= 'ModelledVSMeasured_DrogueOFF_currentstokeswind2.png';
 % [theta,vel] = cart2pol(u+us+2*uw,v+vs+2*vw);
-% filename= 'ModelledVSMeasured_DrogueON_currentstokeswind3.png';
+% filename= 'ModelledVSMeasured_DrogueOFF_currentstokeswind3.png';
 % [theta,vel] = cart2pol(u+us+3*uw,v+vs+3*vw);
-% filename= 'ModelledVSMeasured_DrogueON_currentstokeswind10.png';
+% filename= 'ModelledVSMeasured_DrogueOFF_currentstokeswind10.png';
 % [theta,vel] = cart2pol(u+us+10*uw,v+vs+10*vw);
 
 
@@ -88,5 +90,99 @@ export_fig(filename)
 % xlim([0 3]), ylim([0 3])
 
 
- 
- 
+
+%% Plot R2 vs Windage Coefficient
+
+r2s=zeros(51,1);
+k=0;
+for windage=0:0.1:5
+    k=k+1;
+    [theta,vel] = cart2pol(u+us+windage*uw,v+vs+windage*vw);
+    [theta_,vel_] = cart2pol(u_,v_);
+    
+    [p,bint,r,rint,stats]=LinRegress(vel_, vel);
+    close gcf
+    r2s(k)=stats(1);
+end
+
+r2=zeros(51,1);
+k=0;
+for windage=0:0.1:5
+    k=k+1;
+    [theta,vel] = cart2pol(u+windage*uw,v+windage*vw);
+    [theta_,vel_] = cart2pol(u_,v_);
+    
+    [p,bint,r,rint,stats]=LinRegress(vel_, vel);
+    close gcf
+    r2(k)=stats(1);
+end
+
+
+%% Map Error
+
+
+dx=1;
+[LON,LAT] = meshgrid(0:dx:360,-90:dx:90);
+E  = NaN(size(LON));
+DV = NaN(size(LON));
+C  = zeros(size(LON));
+
+[theta,vel]   = cart2pol(u,v);
+% [theta,vel]   = cart2pol(u+us+0.6*uw,v+vs+0.6*vw);
+[theta_,vel_] = cart2pol(u_,v_);
+
+for k=1:Nstations
+
+    i = round(lat(k)/dx) + 90/dx + 1;
+    j = round(lon(k)/dx) + 1;
+    
+    if isnan(E(i,j))
+        E(i,j)=0;
+        DV(i,j)=0;
+    end
+    
+    E(i,j) = E(i,j)+(vel(k)-vel_(k))/vel_(k);
+    DV(i,j) = DV(i,j)+(vel(k)-vel_(k));
+    C(i,j) = C(i,j) + 1;
+    
+end
+
+E=E./C*100;
+DV=DV./C;
+
+figure;
+
+subplot(3,1,1)
+pcolor(LON,LAT,E)
+ylim([-80 80])
+shading flat
+caxis([-100 100])
+title('Average error (%)')
+colorbar
+
+
+subplot(3,1,2)
+pcolor(LON,LAT,DV)
+ylim([-80 80])
+shading flat
+caxis([-0.5 0.5])
+title('Average dV (m/s)')
+colorbar
+
+
+
+subplot(3,1,3)
+pcolor(LON,LAT,log10(C))
+ylim([-80 80])
+shading flat
+caxis([0 3])
+title('Drifter visits (log10)')
+colorbar
+
+
+
+
+set(gcf,'position',[680    49   494   948],'color','w')
+
+export_fig('ErrorMaps_drogue.png')
+
