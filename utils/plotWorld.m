@@ -1,4 +1,4 @@
-ncid = netcdf.open('C:\Users\lolo\Documents\TheOceanCleanup\data\grid\HYCOM_grid.nc','NOWRITE');
+ncid = netcdf.open('F:\grid\HYCOM_grid.nc','NOWRITE');
 land_x = netcdf.getVar(ncid,0);
 land_y = netcdf.getVar(ncid,1);
 land   = netcdf.getVar(ncid,2);
