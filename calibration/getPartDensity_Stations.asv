@@ -1,8 +1,8 @@
 data_path='F:\particles\windage 0.1';
-output_filename='Eriksen_SEA_coastal0.1.mat';
+output_filename='Eriksen_SEA_0.5.mat';
 
 % data comes from XLS import of Merged_eriksen2014.xlsx
-load('Merged_Eriksen_SEA.mat')
+load('Merged_Eriksen2014.mat')
 Nstations=length(data);
 
 density_1=zeros(Nstations,1);
