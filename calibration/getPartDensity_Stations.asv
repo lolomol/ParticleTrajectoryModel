@@ -1,5 +1,5 @@
 data_path='G:\particles\fishing windage 0.5';
-output_filename='Eriksen_SEA_fishing_current_stokes_wind_0.5.mat';
+output_filename='Eriksen_SEA_fishing_current_stokes_wind_0.1.mat';
 
 load('Merged_Eriksen_SEA.mat')
 Nstations=length(data);

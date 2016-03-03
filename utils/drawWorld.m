@@ -5,9 +5,7 @@ land   = netcdf.getVar(ncid,2);
 netcdf.close(ncid)
 
 figure
-imagesc(land_x,land_y,land')
-caxis([0 5])
-colormap(flipud(bone))
+contour(land_x,land_y,land',[1 1],'k')
 axis xy
 grid on
 drawnow
