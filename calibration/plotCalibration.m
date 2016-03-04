@@ -23,18 +23,22 @@ plot(log10(density_3./stationSearchArea(:,3)),'k')
 
 %% Map modelled station density
 
-load('Eriksen_SEA_coastal_current_stokes.mat')
+% load('Eriksen_SEA_coastal_current_stokes.mat')
+load('Eriksen_SEA_coastal_current_stokes_wind_1.mat')
 
 drawWorld
-title('Coastal - Sea surface current + stokes')
+title('Coastal - Sea surface current + stokes + 1% windage')
 
-sizeClass=find(data(:,8)>0); % macro
+% sizeClass=find(data(:,8)>0); % macro
+sizeClass=find(data(:,5)>0); % micro
 density  = density_2./stationSearchArea(:,2); %in parts/km2, 0.5 degree search
 
 scatter(lon(sizeClass),lat(sizeClass),10,log10(density(sizeClass)),'filled')
 axis image
 set(gca,'color',[0.5 0.5 0.5],'xlim',[120 264],'ylim',[0 63])
+caxis([-4 -1])
 
+export_fig('Micro-Coastal-SScurrent-Stokes-1pWind.png')
 
 
 
@@ -45,8 +49,8 @@ title('Measured microplastic density')
 
 % sizeClass=find(data(:,8)>0); % macro
 % density  = data(:,8); %macro
-sizeClass=find(data(:,5)>0); % macro
-density  = data(:,5); %macro
+sizeClass=find(data(:,5)>0); % micro
+density  = data(:,5); %micro
 
 scatter(lon(sizeClass),lat(sizeClass),10,log10(density(sizeClass)),'filled')
 axis image
