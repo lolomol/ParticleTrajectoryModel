@@ -4,7 +4,7 @@
 
 %% Plot regression
 
-% filename= 'ModelledVSMeasured_DrogueOFF_current.png';
+% filename= 'ModelledVSMeasured_DrogueON_current.png';
 % [theta,vel] = cart2pol(u,v);
 % filename= 'ModelledVSMeasured_DrogueOFF_currentstokes.png';
 % [theta,vel] = cart2pol(u+us,v+vs);
@@ -49,10 +49,14 @@ end
 [p,bint,r,rint,stats]=LinRegress(vel_, vel);
 close gcf
 
+thetacount(thetacount==0)=NaN;
+Rcount(Rcount==0)=NaN;
+
 figure
 
 subplot(1,2,1)
-imagesc(0:3,0:3,log10(Rcount))
+pcolor(0:0.01:3,0:0.01:3,log10(Rcount));
+shading flat
 hold on
 plot([0 2],[0 2],'w','linewidth',2)
 axis xy
@@ -66,7 +70,8 @@ set(gca,'xtick',0:2)
 set(gca,'ytick',0:2)
 
 subplot(1,2,2)
-imagesc(0:360,0:360,log10(thetacount))
+pcolor(0:360,0:360,log10(thetacount))
+shading flat
 hold on
 plot([0 360],[0 360],'w','linewidth',2)
 axis xy
