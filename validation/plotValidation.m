@@ -54,11 +54,12 @@ Rcount(Rcount==0)=NaN;
 
 figure
 
-subplot(1,2,1)
+% subplot(1,2,1)
 pcolor(0:0.01:3,0:0.01:3,log10(Rcount));
 shading flat
 hold on
 plot([0 2],[0 2],'w','linewidth',2)
+plot([0 2],[0 2]*(vel\vel_),'k','linewidth',2)
 axis xy
 axis image
 xlim([0 2]), ylim([0 2])
@@ -68,22 +69,24 @@ ylabel('measured')
 xlabel('modelled')
 set(gca,'xtick',0:2)
 set(gca,'ytick',0:2)
+% colormap(gray)
 
-subplot(1,2,2)
-pcolor(0:360,0:360,log10(thetacount))
-shading flat
-hold on
-plot([0 360],[0 360],'w','linewidth',2)
-axis xy
-axis image
-caxis([0 3])
-title('Direction (degree)')
-ylabel('measured')
-xlabel('modelled')
-set(gca,'xtick',0:90:360)
-set(gca,'ytick',0:90:360)
+% subplot(1,2,2)
+% pcolor(0:360,0:360,log10(thetacount))
+% shading flat
+% hold on
+% plot([0 360],[0 360],'w','linewidth',2)
+% axis xy
+% axis image
+% caxis([0 3])
+% title('Direction (degree)')
+% ylabel('measured')
+% xlabel('modelled')
+% set(gca,'xtick',0:90:360)
+% set(gca,'ytick',0:90:360)
+% colormap(gray)
 
-set(gcf,'position',[389   558   851   420],'color','w')
+set(gcf,'position',[389   558   420   420],'color','w')
 
 disp(['Modelled = ' num2str(p(1)) ' x Measured + ' num2str(p(2))])
 disp(['Velocity R2= ' num2str(stats(1))])
