@@ -1,16 +1,16 @@
 function binSources(path,LAT,LON,shapefilepath)
 
-
-% path='C:\Users\lolo\Documents\TheOceanCleanup\sources\Shipping\sources_nc';
-% LAT=-90:1:90;
-% LON=0:1:360;
-% shapefilepath='C:\Users\lolo\Documents\TheOceanCleanup\sources\Shipping\shipping_source_bin60min';
+% 
+% path='C:\Users\lolo\Documents\TheOceanCleanup\sources\Aquaculture\sources_nc';
+% LAT=-90:5:90;
+% LON=0:5:360;
+% shapefilepath='C:\Users\lolo\Documents\TheOceanCleanup\sources\Aquaculture\aquaculture_source_bin5deg';
 
 x=[];
 y=[];
 n=[];
  
-for year=1993:2015
+for year=1993:2014
      ncid=netcdf.open([path '\parts_source_' num2str(year) '.nc'],'NOWRITE');
      id  = netcdf.getVar(ncid,0)';
      lon = netcdf.getVar(ncid,1)';
@@ -30,7 +30,8 @@ C=zeros(length(LAT),length(LON));
 for k=1:length(x)
     j=getIndex(x(k),LON');
     i=getIndex(y(k),LAT');
-    C(i,j)=C(i,j)+1;   
+    C(i,j)=C(i,j)+1; 
+%     C(i,j)=C(i,j)+pol(k);  %rivers 
 end
 
 k=0;

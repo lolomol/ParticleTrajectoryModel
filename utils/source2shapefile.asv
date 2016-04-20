@@ -21,7 +21,7 @@ for year=1993:2014
      y(end+1:end+np)=lat;
      n(end+1)=np;
 end
-x(x>180)=x(x>180)-360;
+lon(lon>180)=lon(lon>180)
 S.X=x;
 S.Y=y;
 S.Geometry='MultiPoint';
