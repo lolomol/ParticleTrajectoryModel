@@ -1,16 +1,16 @@
 clear
 
 % data_path='C:\Users\lolo\Documents\TheOceanCleanup\data\particles\windage 0.5';
-data_path='F:\CPD-Macroscale\Lebreton_phase_2\4th_run_scenarios\coastal_releases\current_stokes_wind_3';
+data_path='F:\CPD-Macroscale\Lebreton_phase_2\4th_run_scenarios\coastal_releases\current';
 
-mat_file='C:\Users\lolo\Documents\TheOceanCleanup\work\oceanloads\coastal_windage3.mat';
-csv_file='C:\Users\lolo\Documents\TheOceanCleanup\work\oceanloads\basins_total_coastalwindage3.csv';
+mat_file='C:\Users\lolo\Documents\TheOceanCleanup\work\oceanloads\coastal_nostokes.mat';
+csv_file='C:\Users\lolo\Documents\TheOceanCleanup\work\oceanloads\basins_total_coastalnostokes.csv';
 basins_file='C:\Users\lolo\Documents\TheOceanCleanup\github\trashtracker\utils\basin contours\basins.shp';
 
 S=shaperead(basins_file);
 
 init_year=1993;
-end_year=2014;
+end_year=2012;
 
 release_year=init_year:end_year;
 date = datenum(init_year,1,1,0,0,0):datenum(end_year,12,31,0,0,0);
