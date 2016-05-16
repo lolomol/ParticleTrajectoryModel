@@ -1,6 +1,6 @@
 clear;
 
-for initYear = 2010:2014;
+for initYear = 2011;
 
     for currentYear = initYear:2014
 
