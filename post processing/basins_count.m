@@ -37,8 +37,8 @@ for y0=init_year:end_year
             
             %looks into individual basin and count particles
             for basin=1:12
-                part_in = inpolygon(lon(t,released),lat(t,released),S(basin).X+360,S(basin).Y);
-                part_in_360 = inpolygon(lon(t,released),lat(t,released),S(basin).X,S(basin).Y);
+                part_in_360 = inpolygon(lon(t,released),lat(t,released),S(basin).X+360,S(basin).Y);
+                part_in = inpolygon(lon(t,released),lat(t,released),S(basin).X,S(basin).Y);
                 Npart(basin,it,r_year) = sum(part_in) + sum(part_in_360);
                 
             end

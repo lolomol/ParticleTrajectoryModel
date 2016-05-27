@@ -2,7 +2,7 @@ clear;
 
 for initYear = 2011;
 
-    for currentYear = initYear:2014
+    for currentYear = 2014%initYear:2014
 
         loadSettings;
         p = loadParticles( settings );

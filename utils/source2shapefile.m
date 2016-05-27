@@ -1,13 +1,13 @@
 function source2shapefile(path,shapefilepath)
 
-% path='C:\Users\lolo\Documents\TheOceanCleanup\sources\Aquaculture\sources_nc';
-% shapefilepath='C:\Users\lolo\Documents\TheOceanCleanup\sources\Aquaculture\aquaculture_source_distrib';
+% path='C:\Users\lolo\Documents\TheOceanCleanup\sources\Tsunami\sources_nc';
+% shapefilepath='C:\Users\lolo\Documents\TheOceanCleanup\sources\Tsunami\ssunami_source_distrib';
 
 x=[];
 y=[];
 n=[];
  
-for year=1993:2014
+for year=2011%1993:2014
      ncid=netcdf.open([path '\parts_source_' num2str(year) '.nc'],'NOWRITE');
      id  = netcdf.getVar(ncid,0)';
      lon = netcdf.getVar(ncid,1)';

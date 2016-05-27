@@ -55,7 +55,7 @@ settings.ForcingWaves     = true;
 settings.ForcingDiffusion = true;
 
 %% Model parameters
-settings.WindageCoeff     = 0.00; % windage
+settings.WindageCoeff     = 0.05; % windage
 settings.EddyDiffusivity  = 0.1 ; % m2/s
 settings.TimeAdvectDir    = 1   ; % =1 normal, -1 reverse dispersal
 
