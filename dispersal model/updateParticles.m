@@ -35,8 +35,13 @@ end
 
 
 % Check for release dates- dont update unreleased particles
-lat_new(p.releaseDate > settings.date) = p.lat(p.releaseDate > settings.date);
-lon_new(p.releaseDate > settings.date) = p.lon(p.releaseDate > settings.date);
+if settings.TimeAdvectDir==1
+    lat_new(p.releaseDate > settings.date) = p.lat(p.releaseDate > settings.date);
+    lon_new(p.releaseDate > settings.date) = p.lon(p.releaseDate > settings.date);
+else
+    lat_new(p.releaseDate < settings.date) = p.lat(p.releaseDate < settings.date);
+    lon_new(p.releaseDate < settings.date) = p.lon(p.releaseDate < settings.date);
+end
 
 % returns
 p.lon = lon_new;

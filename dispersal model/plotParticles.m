@@ -9,8 +9,11 @@ function plotParticles ( p, settings)
 
 % contour(settings.landmass.lon,settings.landmass.lat,settings.landmass.data',[1 1],'k')
 % hold on
+if settings.TimeAdvectDir==1
 plot(p.lon(p.releaseDate < settings.date),p.lat(p.releaseDate < settings.date),'.k','markersize',1)
-% plot(p.lon(p.releaseDate >= settings.date),p.lat(p.releaseDate >= settings.date),'.b','markersize',1)
+else
+ plot(p.lon(p.releaseDate >= settings.date),p.lat(p.releaseDate >= settings.date),'.b','markersize',1)
+end
 % hold off
 
 axis xy

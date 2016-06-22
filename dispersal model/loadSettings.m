@@ -35,16 +35,16 @@ end
 %% Particle source file
  
 if currentYear == initYear % source file
-   settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\sources\Tsunami\sources_nc\parts_source_' num2str(initYear) '.nc'];
+   settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\sources\Kamilo\parts_source_' num2str(initYear) '.nc'];
 else % hot start
-   settings.SourceFilename       = ['G:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
+   settings.SourceFilename       = ['G:\particles\parts_' num2str(currentYear+1) '_' num2str(initYear) '.nc'];
 end
 
 %% Output File
 settings.OutputFilename       = ['G:\particles\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
 %% Time parameters
-settings.initDate       = datenum(currentYear  ,01,01,0,0,0);
-settings.finalDate      = datenum(currentYear+1,01,01,0,0,0);
+settings.initDate       = datenum(currentYear+1  ,01,01,0,0,0);
+settings.finalDate      = datenum(currentYear,01,01,0,0,0);
 settings.modelTimestep  = datenum(0,0,0,12,0,0)  *24 *3600 ; %in sec
 settings.outputTimestep = datenum(0,0,1,0,0,0);
 
@@ -55,9 +55,9 @@ settings.ForcingWaves     = true;
 settings.ForcingDiffusion = true;
 
 %% Model parameters
-settings.WindageCoeff     = 0.05; % windage
+settings.WindageCoeff     = 0.005; % windage
 settings.EddyDiffusivity  = 0.1 ; % m2/s
-settings.TimeAdvectDir    = 1   ; % =1 normal, -1 reverse dispersal
+settings.TimeAdvectDir    = -1   ; % =1 normal, -1 reverse dispersal
 
 
 

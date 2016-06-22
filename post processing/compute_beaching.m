@@ -1,7 +1,7 @@
 clear
 
-data_path='F:\CPD-Macroscale\Lebreton_phase_2\4th_run_scenarios\coastal_releases\current';
-output_path='C:\Users\lolo\Documents\TheOceanCleanup\work\beaching\time_threshold_28days';
+data_path='F:\CPD-Macroscale\Lebreton_phase_2\4th_run_scenarios\coastal_releases\current_stokes_wind_3';
+output_path='C:\Users\lolo\Documents\TheOceanCleanup\work\beaching\current-stokes-wind3\time_threshold_28days';
 gridFilename   = 'C:\Users\lolo\Documents\TheOceanCleanup\data\grid\HYCOM_grid.nc';
 
 time_treshold=28;
