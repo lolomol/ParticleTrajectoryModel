@@ -8,7 +8,7 @@ jd_ = getIndex(p.lat(index),settings.grid.lat) ;
 ids = mod(id(index) - sign(dlon(index)) -1 ,length(settings.grid.lon))+1 ;
 jds = mod(jd(index) - sign(dlat(index)) -1 ,length(settings.grid.lat))+1 ;
 
-
+ 
 for i=1:length(index)
     
     k=index(i);

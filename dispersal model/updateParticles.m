@@ -10,7 +10,7 @@ function p = updateParticles(p,dx,dy,settings)
 dlon = m2lon(dx,p.lat);
 dlat = m2lat(dy,p.lat);
 
-lon_new = p.lon + dlon;
+lon_new = p.lon + dlon; 
 lat_new = p.lat + dlat;
 
 

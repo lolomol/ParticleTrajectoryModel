@@ -1,6 +1,6 @@
-dateStart=datenum(2015,01,01,0,0,0);
+dateStart=datenum(2015,09,01,0,0,0);
 % dateStart=datenum(1994,02,18,0,0,0);
-dateEnd=datenum(2015,08,01,0,0,0);
+dateEnd=datenum(2016,12,01,0,0,0);
 
 
 for date=dateStart:dateEnd

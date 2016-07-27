@@ -1,12 +1,12 @@
 
-for year=2005:2015
+for year=2015:2015
     for month=1:12
         try
             disp([ sprintf('%d',year) ' ' sprintf('%02d',month) ])
             
-            hfile=['C:\Users\lolo\Documents\TheOceanCleanup\wavewatch3\MMAB\multi_1.glo_30m.hs.' sprintf('%d',year) sprintf('%02d',month)  '.grb2.gz'];
-            pfile=['C:\Users\lolo\Documents\TheOceanCleanup\wavewatch3\MMAB\multi_1.glo_30m.tp.' sprintf('%d',year) sprintf('%02d',month)  '.grb2.gz'];
-            dfile=['C:\Users\lolo\Documents\TheOceanCleanup\wavewatch3\MMAB\multi_1.glo_30m.dp.' sprintf('%d',year) sprintf('%02d',month)  '.grb2.gz'];
+            hfile=['C:\Users\lolo\Documents\TheOceanCleanup\data\wavewatch3\MMAB\multi_1.glo_30m.hs.' sprintf('%d',year) sprintf('%02d',month)  '.grb2.gz'];
+            pfile=['C:\Users\lolo\Documents\TheOceanCleanup\data\wavewatch3\MMAB\multi_1.glo_30m.tp.' sprintf('%d',year) sprintf('%02d',month)  '.grb2.gz'];
+            dfile=['C:\Users\lolo\Documents\TheOceanCleanup\data\wavewatch3\MMAB\multi_1.glo_30m.dp.' sprintf('%d',year) sprintf('%02d',month)  '.grb2.gz'];
             
             nch=ncgeodataset(hfile);
             ncp=ncgeodataset(pfile);
@@ -31,9 +31,9 @@ for year=2005:2015
                 ddata(:,:,t)=data(:,:,t)';
             end
             
-            hNCfile=['E:/wavewatch3/MMAB/hs_' num2str(year) '_' num2str(month) '.nc'];
-            pNCfile=['E:/wavewatch3/MMAB/tp_' num2str(year) '_' num2str(month) '.nc'];
-            dNCfile=['E:/wavewatch3/MMAB/dp_' num2str(year) '_' num2str(month) '.nc'];
+            hNCfile=['C:\Users\lolo\Documents\TheOceanCleanup\data\wavewatch3\MMAB/hs_' num2str(year) '_' num2str(month) '.nc'];
+            pNCfile=['C:\Users\lolo\Documents\TheOceanCleanup\data\wavewatch3\MMAB/tp_' num2str(year) '_' num2str(month) '.nc'];
+            dNCfile=['C:\Users\lolo\Documents\TheOceanCleanup\data\wavewatch3\MMAB/dp_' num2str(year) '_' num2str(month) '.nc'];
             
             ncid = netcdf.create(hNCfile,'CLOBBER');
             time_dimID = netcdf.defDim(ncid,'time',length(g.time));
