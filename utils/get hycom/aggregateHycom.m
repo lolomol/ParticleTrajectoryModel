@@ -1,6 +1,6 @@
 % missing: 12-1994
 for year=2015%2013:2014;
-    for month=8:12;
+    for month=2:2
 
         % time step in hycom database
         dt=datenum(0,0,0,6,0,0);
@@ -32,7 +32,10 @@ for year=2015%2013:2014;
 
         netcdf.putAtt(ncid,netcdf.getConstant('NC_GLOBAL'),'grid_type','curvilinear');
         netcdf.putAtt(ncid,0,'units','days since 2000-12-31 00:00:00')
-        netcdf.putAtt(ncid,3,'scalingFactor','0.001')
+        netcdf.putAtt(ncid,3,'scale_factor',0.001)
+        netcdf.putAtt(ncid,3,'add_offset',0)
+        netcdf.putAtt(ncid,3,'missing_value',-30000)
+        netcdf.putAtt(ncid,3,'units','m/s')
 
         netcdf.endDef(ncid)
         netcdf.putVar(ncid,1,lon)
@@ -93,8 +96,10 @@ for year=2015%2013:2014;
 
         netcdf.putAtt(ncid,netcdf.getConstant('NC_GLOBAL'),'grid_type','curvilinear');
         netcdf.putAtt(ncid,0,'units','days since 2000-12-31 00:00:00')
-        netcdf.putAtt(ncid,3,'scalingFactor','0.001')
-
+        netcdf.putAtt(ncid,3,'scale_factor',0.001)
+        netcdf.putAtt(ncid,3,'add_offset',0)
+        netcdf.putAtt(ncid,3,'missing_value',-30000)
+        netcdf.putAtt(ncid,3,'units','m/s')
         netcdf.endDef(ncid)
         netcdf.putVar(ncid,1,lon)
         netcdf.putVar(ncid,2,lat)

@@ -1,10 +1,15 @@
-dateStart=datenum(2015,09,01,0,0,0);
+if ~exist('./nc', 'dir')
+   mkdir('./nc');
+end
+
+
+dateStart=datenum(2015,02,01,0,0,0);
 % dateStart=datenum(1994,02,18,0,0,0);
-dateEnd=datenum(2016,12,01,0,0,0);
+dateEnd=datenum(2015,03,01,0,0,0);
 
 
 for date=dateStart:dateEnd
-     for hour=0%:6:21
+     for hour=0:6:21
          filename=['./nc/global_' datestr((date+hour/24),'yyyy_mm_dd_HH') '.nc'];
          if exist(filename, 'file')~=2
              
@@ -18,8 +23,9 @@ for date=dateStart:dateEnd
                elseif date<=datenum(2014,04,08,18,0,0)
                    url=['http://ncss.hycom.org/thredds/ncss/grid/GLBu0.08/expt_91.0?var=water_u&var=water_v&north=80&west=0&east=359.92&south=-80&horizStride=1&time=' datestr(date,'yyyy-mm-dd') 'T' sprintf('%02d',hour) '%3A00%3A00Z&vertCoord=0&accept=netcdf'];
                else
-                   url=['http://ncss.hycom.org/thredds/ncss/grid/GLBu0.08/expt_91.1/uv3z?var=water_u&var=water_v&north=80&west=0&east=359.92&south=-80&horizStride=1&time=' datestr(date,'yyyy-mm-dd') 'T' sprintf('%02d',hour) '%3A00%3A00Z&vertCoord=0&accept=netcdf'];             
+                   url=['http://ncss.hycom.org/thredds/ncss/grid/GLBu0.08/expt_91.1/uv3z?var=water_u&var=water_v&north=80&west=0&east=359.92&south=-80&horizStride=1&time=' datestr(date,'yyyy-mm-dd') 'T' sprintf('%02d',hour) '%3A00%3A00Z&vertCoord=0&accept=netcdf'];
                end
+                disp(['downloading: ' datestr((date+hour/24),'yyyy_mm_dd_HH')]);
                 urlwrite(url,filename);
             catch
                 disp(['error downloading: ' datestr((date+hour/24),'yyyy_mm_dd_HH')])
@@ -30,4 +36,4 @@ for date=dateStart:dateEnd
          end
      end
 end
-
+ 
