@@ -3,19 +3,25 @@
 if currentYear<=2005
 settings.SScurrentPath        = 'G:\hycom\';
 else
-settings.SScurrentPath           = 'G:\hycom\';
+%settings.SScurrentPath           = 'G:\hycom\';
+settings.SScurrentPath           = '../utils/get hycom/nc/';
 end
 settings.SScurrentTimeOrigin = datenum(2000,12,31,0,0,0);
 
 %% Sea Surface wind
+% unused
+%{
 if currentYear<=2005
 settings.WindagePath          = 'G:\gfs\';
 else
 settings.WindagePath           = 'G:\gfs\';
 end
 settings.WindageTimeOrigin = datenum(1800,01,01,0,0,0);
+%}
 
 %% Stokes drift
+% unused
+%{
 if currentYear<=2007
 settings.StokesPath           = 'G:\wavewatch3\CFSR\';
 else
@@ -24,10 +30,12 @@ end
     
 settings.StokesBathyFilename  = 'G:\etopo2\ETOPO2_0.5.nc';
 settings.StokesTimeOrigin = datenum(2000,12,31,0,0,0);
+%}
 
 %% Grid file
 if currentYear>2012 % different hycom grid file depending on experiments
-    settings.GridFilename         = 'G:\grid\HYCOM_grid.nc';
+    %settings.GridFilename         = 'G:\grid\HYCOM_grid.nc';
+    settings.GridFilename         = '../forcing_data/HYCOM_grid.nc';
 else
     settings.GridFilename         = 'G:\grid\HYCOM_grid_expt19.nc';
 end
@@ -35,23 +43,26 @@ end
 %% Particle source file
  
 if currentYear == initYear % source file
-   settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\sources\Aquaculture\sources_nc\parts_source_' num2str(initYear) '.nc'];
+   %settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\sources\Aquaculture\sources_nc\parts_source_' num2str(initYear) '.nc'];
+   settings.SourceFilename       = ['../forcing_data/parts_source_' num2str(initYear) '.nc'];
 else % hot start
    settings.SourceFilename       = ['G:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
 end
 
 %% Output File
-settings.OutputFilename       = ['G:\particles\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
+%settings.OutputFilename       = ['G:\particles\parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
+settings.OutputFilename       = ['../output/parts_' num2str(currentYear) '_' num2str(initYear) '.nc'];
 %% Time parameters
 settings.initDate       = datenum(currentYear  ,01,01,0,0,0);
-settings.finalDate      = datenum(currentYear+1,01,01,0,0,0);
+%settings.finalDate      = datenum(currentYear+1,01,01,0,0,0);
+settings.finalDate      = datenum(currentYear,03,01,0,0,0);
 settings.modelTimestep  = datenum(0,0,0,12,0,0)  *24 *3600 ; %in sec
 settings.outputTimestep = datenum(0,0,1,0,0,0);
 
 %% Forcing constituents paramaters
 settings.ForcingCurrent   = true;
-settings.ForcingWind      = true;
-settings.ForcingWaves     = true;
+settings.ForcingWind      = false;
+settings.ForcingWaves     = false;
 settings.ForcingDiffusion = true;
 
 %% Model parameters
@@ -79,12 +90,14 @@ netcdf.close(ncid)
 
 % get bathymetry for stokes drift calculation (needs to be the same size
 % as wave data)
+% skip stokes
+%{ 
 ncid=netcdf.open(settings.StokesBathyFilename,'NOWRITE');
     settings.bathymetry.lon = netcdf.getVar(ncid,0);
     settings.bathymetry.lat = netcdf.getVar(ncid,1);
     settings.bathymetry.d   = netcdf.getVar(ncid,2);
 netcdf.close(ncid)
-
+%}
 
 
 
