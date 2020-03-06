@@ -20,16 +20,18 @@ settings.WindageTimeOrigin = datenum(1800,01,01,0,0,0);
 %}
 
 %% Stokes drift
-% unused
-%{
-if currentYear<=2007
-settings.StokesPath           = 'G:\wavewatch3\CFSR\';
-else
-settings.StokesPath           = 'G:\wavewatch3\MMAB\';
-end
+% unused except bathymetry
+
+%if currentYear<=2007
+%settings.StokesPath           = 'G:\wavewatch3\CFSR\';
+%else
+%settings.StokesPath           = 'G:\wavewatch3\MMAB\';
+%end
     
-settings.StokesBathyFilename  = 'G:\etopo2\ETOPO2_0.5.nc';
-settings.StokesTimeOrigin = datenum(2000,12,31,0,0,0);
+%settings.StokesBathyFilename  = 'G:\etopo2\ETOPO2_0.5.nc';
+settings.StokesBathyFilename  = '../forcing_data/ETOPO2_0.5.nc';
+
+%settings.StokesTimeOrigin = datenum(2000,12,31,0,0,0);
 %}
 
 %% Grid file
@@ -90,14 +92,13 @@ netcdf.close(ncid)
 
 % get bathymetry for stokes drift calculation (needs to be the same size
 % as wave data)
-% skip stokes
-%{ 
+ 
 ncid=netcdf.open(settings.StokesBathyFilename,'NOWRITE');
     settings.bathymetry.lon = netcdf.getVar(ncid,0);
     settings.bathymetry.lat = netcdf.getVar(ncid,1);
     settings.bathymetry.d   = netcdf.getVar(ncid,2);
 netcdf.close(ncid)
-%}
+
 
 
 

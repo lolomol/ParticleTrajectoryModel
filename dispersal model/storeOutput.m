@@ -10,6 +10,6 @@ t = getIndex(settings.date, settings.outputDateList);
 
 p.LON(t,:) = p.lon;
 p.LAT(t,:) = p.lat;
-
+p.Z(t,:) = p.z;
 
  

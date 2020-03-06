@@ -46,6 +46,10 @@ while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.fin
     dy = settings.TimeAdvectDir *( v*dt + vs*dt + vw*dt + Dy );
     p = updateParticles( p, dx, dy, settings);
     
+    % advect vertical
+    dz = 0; % for now
+    p = updateParticlesVertical(p, dz, settings);
+    
     % update time
     settings.date = settings.date + settings.TimeAdvectDir* settings.modelTimestep / (24*3600);
     
