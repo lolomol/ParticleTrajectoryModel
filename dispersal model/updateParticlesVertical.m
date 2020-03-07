@@ -9,9 +9,6 @@ function p = updateParticlesVertical(p,dz,settings)
 
 z_new = p.z + dz;
 
-% Constrain to ocean surface
-z_new(z_new < 0) = 0;
-
 % Constrain to bathymetry
 % gets bathymetry depth using same method as getStokes
 
@@ -27,6 +24,10 @@ end
 
 % constrain to ocean floor
 z_new(z_new > z_bottom) = z_bottom(z_new > z_bottom);
+
+
+% Constrain to ocean surface
+z_new(z_new < 0) = 0;
 
 % Check for release dates- dont update unreleased particles
 if settings.TimeAdvectDir==1

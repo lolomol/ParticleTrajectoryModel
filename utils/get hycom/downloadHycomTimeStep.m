@@ -3,9 +3,9 @@ if ~exist('./nc', 'dir')
 end
 
 
-dateStart=datenum(2015,03,04,0,0,0);
+dateStart=datenum(2015,01,01,0,0,0);
 % dateStart=datenum(1994,02,18,0,0,0);
-dateEnd=datenum(2015,03,04,0,0,0);
+dateEnd=datenum(2015,01,07,0,0,0);
 
 
 for date=dateStart:dateEnd

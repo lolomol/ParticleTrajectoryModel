@@ -10,8 +10,8 @@ dateVec = datevec(settings.date);
 y = dateVec(1);
 m = dateVec(2);
 
-ufile = [settings.SScurrentPath 'u_' num2str(y) '_' num2str(m) '.nc'];
-vfile = [settings.SScurrentPath 'v_' num2str(y) '_' num2str(m) '.nc'];
+ufile = [settings.SScurrentPath 'u_' num2str(y) '_' num2str(m) '_3d.nc'];
+vfile = [settings.SScurrentPath 'v_' num2str(y) '_' num2str(m) '_3d.nc'];
 
 % reads in u,v file extent: lat, lon and time
 ncidu = netcdf.open(ufile,'NOWRITE') ;
@@ -19,11 +19,13 @@ ncidu = netcdf.open(ufile,'NOWRITE') ;
     time = settings.SScurrentTimeOrigin + time; % hycom time convention
     lon  = netcdf.getVar(ncidu,1);
     lat  = netcdf.getVar(ncidu,2);
+    depth = netcdf.getVar(ncidu,3);
 netcdf.close(ncidu)
 
 % particles coordinates
 pLon = p.lon;
 pLat = p.lat;
+pZ = p.z;
 
 % special case if longitude is referenced -180 to 180
 if min(lon)<0
@@ -33,6 +35,7 @@ end
 % finds i,j,t indexes for individual particles in current files
 i = getIndex(pLon,lon);
 j = getIndex(pLat,lat);
+z_idx = getIndex(pZ, depth);
 t = getIndex(settings.date,time) -1; % netcdf index starts at 0
 
 % look for neighbor cells to compute gradients
@@ -62,10 +65,10 @@ dy=zeros(1,p.np);
 % extract U and V layers from current files at time = t and time = t+dt
 ncidu = netcdf.open(ufile,'NOWRITE') ;
 ncidv = netcdf.open(vfile,'NOWRITE') ;
-U   = netcdf.getVar( ncidu , 3 , [0,0,t] , [length(lon),length(lat),1] );
-V   = netcdf.getVar( ncidv , 3 , [0,0,t] , [length(lon),length(lat),1] );
-Udt = netcdf.getVar( ncidu , 3 , [0,0,tdt] , [length(lon),length(lat),1] );
-Vdt = netcdf.getVar( ncidv , 3 , [0,0,tdt] , [length(lon),length(lat),1] );
+U   = netcdf.getVar( ncidu , 4 , [0,0,0,t] , [length(lon),length(lat),length(depth),1] );
+V   = netcdf.getVar( ncidv , 4 , [0,0,0,t] , [length(lon),length(lat),length(depth),1] );
+Udt = netcdf.getVar( ncidu , 4 , [0,0,0,tdt] , [length(lon),length(lat),length(depth),1] );
+Vdt = netcdf.getVar( ncidv , 4 , [0,0,0,tdt] , [length(lon),length(lat),length(depth),1] );
 netcdf.close(ncidu)
 netcdf.close(ncidv)
 
@@ -85,26 +88,26 @@ Vdt ( Vdt==-30 ) = 0;
 
 for k=1:p.np
     % i,j,t
-    uij(k) = U( i(k)  ,j(k) );
-    vij(k) = V( i(k)  ,j(k) );
+    uij(k) = U( i(k)  ,j(k) ,z_idx(k));
+    vij(k) = V( i(k)  ,j(k) ,z_idx(k));
     % i-1,j,t
-    uis(k) = U( is(k) ,j(k) );
-    vis(k) = V( is(k) ,j(k) );
+    uis(k) = U( is(k) ,j(k) ,z_idx(k));
+    vis(k) = V( is(k) ,j(k) ,z_idx(k));
     % i+1,j,t
-    uie(k) = U( ie(k) ,j(k) );
-    vie(k) = V( ie(k) ,j(k) );
+    uie(k) = U( ie(k) ,j(k) ,z_idx(k));
+    vie(k) = V( ie(k) ,j(k) ,z_idx(k));
     % i,j-1,t
-    ujs(k) = U( i(k)  ,js(k) );
-    vjs(k) = V( i(k)  ,js(k) );
+    ujs(k) = U( i(k)  ,js(k) ,z_idx(k));
+    vjs(k) = V( i(k)  ,js(k) ,z_idx(k));
     % i,j+1,t
-    uje(k) = U( i(k)  ,je(k) );
-    vje(k) = V( i(k)  ,je(k) );
+    uje(k) = U( i(k)  ,je(k) ,z_idx(k));
+    vje(k) = V( i(k)  ,je(k) ,z_idx(k));
     % i,j t+1
-    udt(k) = Udt( i(k)  ,j(k) );
-    vdt(k) = Vdt( i(k)  ,j(k) );
+    udt(k) = Udt( i(k)  ,j(k) ,z_idx(k));
+    vdt(k) = Vdt( i(k)  ,j(k) ,z_idx(k));
     % dx,dy
-    dx (k) = settings.grid.dx( i(k)  ,j(k) );
-    dy (k) = settings.grid.dy( i(k)  ,j(k) );
+    dx (k) = settings.grid.dx( i(k)  ,j(k)); % assumes dx and dy are same
+    dy (k) = settings.grid.dy( i(k)  ,j(k)); % at every depth level
 
 end
 

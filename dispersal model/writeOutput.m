@@ -17,6 +17,8 @@ netcdf.defVar(ncid,'id','NC_SHORT', p_dimID );
 netcdf.defVar(ncid,'releaseDate','NC_FLOAT', p_dimID );
 netcdf.defVar(ncid,'unsd','NC_SHORT', p_dimID );
 
+netcdf.defVar(ncid,'depth','NC_FLOAT', [time_dimID, p_dimID] );
+
 netcdf.endDef(ncid)
 
 netcdf.putVar(ncid, 0, settings.outputDateList)
@@ -25,6 +27,7 @@ netcdf.putVar(ncid, 2, p.LAT)
 netcdf.putVar(ncid, 3, p.id)
 netcdf.putVar(ncid, 4, p.releaseDate)
 netcdf.putVar(ncid, 5, p.UNSD)
+netcdf.putVar(ncid, 6, p.Z)
 
 netcdf.close(ncid)
 

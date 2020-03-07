@@ -57,7 +57,7 @@ settings.OutputFilename       = ['../output/parts_' num2str(currentYear) '_' num
 %% Time parameters
 settings.initDate       = datenum(currentYear  ,01,01,0,0,0);
 %settings.finalDate      = datenum(currentYear+1,01,01,0,0,0);
-settings.finalDate      = datenum(currentYear,03,01,0,0,0);
+settings.finalDate      = datenum(currentYear,01,07,0,0,0);
 settings.modelTimestep  = datenum(0,0,0,12,0,0)  *24 *3600 ; %in sec
 settings.outputTimestep = datenum(0,0,1,0,0,0);
 
