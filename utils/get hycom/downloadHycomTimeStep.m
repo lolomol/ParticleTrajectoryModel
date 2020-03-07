@@ -3,14 +3,14 @@ if ~exist('./nc', 'dir')
 end
 
 
-dateStart=datenum(2015,02,01,0,0,0);
+dateStart=datenum(2015,03,04,0,0,0);
 % dateStart=datenum(1994,02,18,0,0,0);
-dateEnd=datenum(2015,03,01,0,0,0);
+dateEnd=datenum(2015,03,04,0,0,0);
 
 
 for date=dateStart:dateEnd
-     for hour=0:6:21
-         filename=['./nc/global_' datestr((date+hour/24),'yyyy_mm_dd_HH') '.nc'];
+     for hour=0%:6:21  % coarse time resolution for testing
+         filename=['./nc/global_3d_coarse_uv_' datestr((date+hour/24),'yyyy_mm_dd_HH') '.nc'];
          if exist(filename, 'file')~=2
              
             try
@@ -23,9 +23,10 @@ for date=dateStart:dateEnd
                elseif date<=datenum(2014,04,08,18,0,0)
                    url=['http://ncss.hycom.org/thredds/ncss/grid/GLBu0.08/expt_91.0?var=water_u&var=water_v&north=80&west=0&east=359.92&south=-80&horizStride=1&time=' datestr(date,'yyyy-mm-dd') 'T' sprintf('%02d',hour) '%3A00%3A00Z&vertCoord=0&accept=netcdf'];
                else
-                   url=['http://ncss.hycom.org/thredds/ncss/grid/GLBu0.08/expt_91.1/uv3z?var=water_u&var=water_v&north=80&west=0&east=359.92&south=-80&horizStride=1&time=' datestr(date,'yyyy-mm-dd') 'T' sprintf('%02d',hour) '%3A00%3A00Z&vertCoord=0&accept=netcdf'];
+                   horiz_stride='6';  % course resolution for testing
+                   url=['http://tds.hycom.org/thredds/ncss/grid/GLBu0.08/expt_91.1/uv3z?var=water_u&var=water_v&north=80&west=0&east=359.92&south=-80&horizStride=' horiz_stride '&time=' datestr(date,'yyyy-mm-dd') 'T' sprintf('%02d',hour) '%3A00%3A00Z&accept=netcdf'];
                end
-                disp(['downloading: ' datestr((date+hour/24),'yyyy_mm_dd_HH')]);
+                disp(['downloading: ' filename]);
                 urlwrite(url,filename);
             catch
                 disp(['error downloading: ' datestr((date+hour/24),'yyyy_mm_dd_HH')])
