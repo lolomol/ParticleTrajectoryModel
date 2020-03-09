@@ -6,7 +6,7 @@ for initYear = 2015:2015
 
         loadSettings;
         p = loadParticles( settings );
-        p.z = 1000*ones(1, p.np);
+        settings.forcedDepth = 1000;
         main(p,settings)
 
     end

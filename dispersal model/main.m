@@ -46,8 +46,8 @@ while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.fin
     dy = settings.TimeAdvectDir *( v*dt + vs*dt + vw*dt + Dy );
     p = updateParticles( p, dx, dy, settings);
     
-    % advect vertical
-    dz = 0; % for now
+    % transport vertical
+    dz = getVerticalTransport(p, dt, settings);
     p = updateParticlesVertical(p, dz, settings);
     
     % update time

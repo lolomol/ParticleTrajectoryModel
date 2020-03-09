@@ -22,15 +22,18 @@ settings.WindageTimeOrigin = datenum(1800,01,01,0,0,0);
 %% Stokes drift
 % unused except bathymetry
 
-%if currentYear<=2007
-%settings.StokesPath           = 'G:\wavewatch3\CFSR\';
-%else
-%settings.StokesPath           = 'G:\wavewatch3\MMAB\';
-%end
+%{
+if currentYear<=2007
+settings.StokesPath           = 'G:\wavewatch3\CFSR\';
+else
+settings.StokesPath           = 'G:\wavewatch3\MMAB\';
+end
+%}
     
 %settings.StokesBathyFilename  = 'G:\etopo2\ETOPO2_0.5.nc';
 settings.StokesBathyFilename  = '../forcing_data/ETOPO2_0.5.nc';
 
+%{
 %settings.StokesTimeOrigin = datenum(2000,12,31,0,0,0);
 %}
 
@@ -46,7 +49,7 @@ end
  
 if currentYear == initYear % source file
    %settings.SourceFilename       = ['C:\Users\lolo\Documents\TheOceanCleanup\sources\Aquaculture\sources_nc\parts_source_' num2str(initYear) '.nc'];
-   settings.SourceFilename       = ['../forcing_data/parts_source_' num2str(initYear) '.nc'];
+   settings.SourceFilename       = ['../forcing_data/parts_source_' num2str(initYear) '_uniform.nc'];
 else % hot start
    settings.SourceFilename       = ['G:\particles\parts_' num2str(currentYear-1) '_' num2str(initYear) '.nc'];
 end
@@ -57,8 +60,8 @@ settings.OutputFilename       = ['../output/parts_' num2str(currentYear) '_' num
 %% Time parameters
 settings.initDate       = datenum(currentYear  ,01,01,0,0,0);
 %settings.finalDate      = datenum(currentYear+1,01,01,0,0,0);
-settings.finalDate      = datenum(currentYear,01,07,0,0,0);
-settings.modelTimestep  = datenum(0,0,0,12,0,0)  *24 *3600 ; %in sec
+settings.finalDate      = datenum(currentYear,02,28,0,0,0);
+settings.modelTimestep  = datenum(0,0,1,0,0,0)  *24 *3600 ; %in sec, 1 day, coarse
 settings.outputTimestep = datenum(0,0,1,0,0,0);
 
 %% Forcing constituents paramaters

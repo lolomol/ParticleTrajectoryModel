@@ -1,12 +1,12 @@
-if ~exist('./nc', 'dir')
-   mkdir('./nc');
+if ~exist('/Users/dklink/data_science/trashtracker/utils/get hycom/nc', 'dir')
+   mkdir('/Users/dklink/data_science/trashtracker/utils/get hycom/nc');
 end
 
 
-dateStart=datenum(2015,01,01,0,0,0);
+dateStart=datenum(2015,04,24,0,0,0);
 % dateStart=datenum(1994,02,18,0,0,0);
-dateEnd=datenum(2015,01,07,0,0,0);
-
+dateEnd=datenum(2015,12,31,0,0,0);
+%3/28
 
 for date=dateStart:dateEnd
      for hour=0%:6:21  % coarse time resolution for testing

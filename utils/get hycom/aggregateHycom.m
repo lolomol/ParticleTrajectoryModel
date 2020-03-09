@@ -1,11 +1,11 @@
 % missing: 12-1994
 for year=2015%2013:2014;
-    for month=1:1
+    for month=1:2
 
         % time step in hycom database
-        dt=datenum(0,0,1,0,0,0);
+        dt=datenum(0,0,1,0,0,0);  % 1 day because coarse files
         dateStart = datenum(year,month,01,0,0,0);
-        dateEnd   = datenum(year,month,08,0,0,0) - dt;
+        dateEnd   = datenum(year,month+1,1,0,0,0) - dt;
         nt=length(dateStart:dt:dateEnd);
 
         % load depth & lat & lon
