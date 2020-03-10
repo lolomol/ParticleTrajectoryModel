@@ -10,11 +10,13 @@ function [p, dz] = biofoulingTransport(p, dt, settings)
     S = 35;  % some netcdf reading
     T = 25;  % some netcdf reading
     chl = 0.05;  % some netcdf reading
+    I_surf = 1380;  % calculated from geometry
     
     % extract forcing for every particle
     p.S = S*ones(1, p.np);  % will pull from real data
     p.T = T*ones(1, p.np);  % will pull from real data
     p.chl = chl*ones(1, p.np);  % will pull from real data
+    p.I_z = I_surf*ones(1, p.np);  % will calculate from I_surf
     
     p = updateBiofouling(p, dt);  % make the algae grow
     dzdt = getSettlingVelocity(p);  % calculate the settling speed
