@@ -3,11 +3,11 @@ if ~exist('/Users/dklink/data_science/trashtracker/utils/get hycom/nc', 'dir')
 end
 
 
-dateStart=datenum(2015,04,24,0,0,0);
+dateStart=datenum(2015,01,01,0,0,0);
 % dateStart=datenum(1994,02,18,0,0,0);
 dateEnd=datenum(2015,12,31,0,0,0);
-%3/28
 
+previous_bytes = 0;
 for date=dateStart:dateEnd
      for hour=0%:6:21  % coarse time resolution for testing
          filename=['./nc/global_3d_coarse_uv_' datestr((date+hour/24),'yyyy_mm_dd_HH') '.nc'];
@@ -26,8 +26,20 @@ for date=dateStart:dateEnd
                    horiz_stride='6';  % course resolution for testing
                    url=['http://tds.hycom.org/thredds/ncss/grid/GLBu0.08/expt_91.1/uv3z?var=water_u&var=water_v&north=80&west=0&east=359.92&south=-80&horizStride=' horiz_stride '&time=' datestr(date,'yyyy-mm-dd') 'T' sprintf('%02d',hour) '%3A00%3A00Z&accept=netcdf'];
                end
-                disp(['downloading: ' filename]);
-                urlwrite(url,filename);
+                while true
+                    disp(['downloading: ' filename]);
+                    urlwrite(url,filename);
+                    f = dir(filename);
+                    % only continue if the file matches last one's size, or
+                    % this is the first download
+                    if (f.bytes == previous_bytes || previous_bytes == 0)
+                        previous_bytes = f.bytes;
+                        break
+                    end
+                    %otherwise, try again
+                    delete filename;
+                end
+                
             catch
                 disp(['error downloading: ' datestr((date+hour/24),'yyyy_mm_dd_HH')])
                 fid=fopen('errorlog.txt','a');
