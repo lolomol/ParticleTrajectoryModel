@@ -1,4 +1,4 @@
-filename = 'parts_2015_2015_3d_1000m.nc';
+filename = 'parts_2015_2015.nc';
 file = ['../output/' filename];
 lon = ncread(file, 'lon');
 lat = ncread(file, 'lat');
@@ -46,7 +46,7 @@ for i=2:1:length(time)
     s.CData = depth(i, released);
     
     l.Value = time(i);
-    pause(.01);
+    pause(.05);
 end
 
 

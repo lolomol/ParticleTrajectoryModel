@@ -1,15 +1,12 @@
-function dz = getVerticalTransport(p, dt, settings)
+function [p, dz] = getVerticalTransport(p, dt, settings)
 %getVerticalTransport calculate vertical transport via any number of
 % arbitrary mechanisms
 %   p: particle structure
 %   dt: timestep (seconds)
 
     % mechanism: biofouling
-    %{
-    p = updateBiofouling(p);
-    dzdt = getSettlingVelocity(p);
-    dz = dzdt*dt;
-    %}
+    % modifies particle, so particle returned as well
+    [p, dz] = biofoulingTransport(p, dt, settings);
 
     %{
     % mechanism: force to a specific depth

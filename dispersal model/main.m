@@ -46,9 +46,13 @@ while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.fin
     dy = settings.TimeAdvectDir *( v*dt + vs*dt + vw*dt + Dy );
     p = updateParticles( p, dx, dy, settings);
     
-    % transport vertical
-    dz = getVerticalTransport(p, dt, settings);
-    p = updateParticlesVertical(p, dz, settings);
+    % transport vertical, with smaller timesteps
+    num_nested_timesteps = 1;
+    small_dt = dt/num_nested_timesteps;
+    for i=1:num_nested_timesteps
+        [p, dz] = getVerticalTransport(p, small_dt, settings);
+        p = updateParticlesVertical(p, dz, settings);
+    end
     
     % update time
     settings.date = settings.date + settings.TimeAdvectDir* settings.modelTimestep / (24*3600);

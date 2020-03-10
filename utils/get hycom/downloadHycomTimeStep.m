@@ -37,7 +37,7 @@ for date=dateStart:dateEnd
                         break
                     end
                     %otherwise, try again
-                    delete filename;
+                    delete(filename);
                 end
                 
             catch
