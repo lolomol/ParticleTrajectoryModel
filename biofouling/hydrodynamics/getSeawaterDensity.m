@@ -1,9 +1,10 @@
-function rho_sw = getSeawaterDensity(p)
-%GET_SEAWATER_DENSITY calculate rho_sw at each particle (kg m^-3) 
-    
+function rho_sw = getSeawaterDensity(S, T)
+%GET_SEAWATER_DENSITY calculate rho_sw along salinity/temp vectors
     % parameterization from Sharqawy et al 2010, cited by Kooi 2017
-    S = p.S/1000;  % convert g/kg to kg/kg
-    T = p.T;
+%S: salinity (g / kg)
+%T: temp (celsius)
+%returns: density of seawater (kg m^-3)
+    S = S/1000;  % convert g/kg to kg/kg
     
     a_1 = 9.999E2;
     a_2 = 2.034E-2;

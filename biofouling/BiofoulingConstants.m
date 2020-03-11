@@ -3,6 +3,7 @@ classdef BiofoulingConstants
     properties (Constant)
         % PHYSICAL CONSTANTS
         g = 9.81;  % gravitational acceleration (m s^-2, positive down)
+        k = 1.38064852e-23 % boltzmann constant (m^2 kg s^-2 K^-1)
         
         % ALGAE PROPERTIES
         V_A = 2e-16; % volume of individual algae particle (m^3)
@@ -10,8 +11,8 @@ classdef BiofoulingConstants
         rho_A = 1388; % density of algae (kg m^-3)
         
         % GROWTH PROPERTIES
-        %gamma = 1.7e5 / constants.seconds_per_day; % shear rate (s^-1)
-        %carbon_per_algae = 2726 * 1e-9; % mass carbon per algal cell (mg carbon (algal cell)^-1)
+        gamma = 1.7e5 / seconds(days(1)); % shear rate (s^-1)
+        carbon_per_algae = 2726 * 1e-9; % mass carbon per algal cell (mg carbon (algal cell)^-1)
         %m_A = .39 / constants.seconds_per_day;  % mortality rate (s^-1)
         %T_min = .2;   % min temp for growth (Celsius)
         %T_max = 33.3;   % max temp for growth (Celsius)
