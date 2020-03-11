@@ -24,8 +24,7 @@ classdef BiofoulingConstants
         %%% mortality
         m_A = .39 / constants.seconds_per_day;  % mortality rate (s^-1)
         %%% respiration
-        %Q_10 = 2; % Temperature dependence coefficient respiration (unitless)
-        %Resp_A = .1 / constants.seconds_per_day; % Respiration rate (s^-1)
-        
+        Q_10 = 2; % Temperature dependence coefficient respiration (unitless)
+        Resp_A = .1 / constants.seconds_per_day; % Respiration rate (s^-1)
     end
 end
