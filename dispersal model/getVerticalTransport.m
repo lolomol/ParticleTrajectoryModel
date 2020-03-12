@@ -6,8 +6,10 @@ function [p, dz] = getVerticalTransport(p, dt, settings)
 
     % mechanism: biofouling
     p = updateForcingDataOnParticles(p, settings);  % load T, S, chl, I onto particle
-    [p, dz] = biofoulingTransport(p, dt, settings); % modifies particle, so particle returned as well
-
+    p = updateBiofouling(p, dt);  % make the algae grow
+    p = getSettlingVelocity(p);  % calculate the settling speed
+    dz = p.dzdt*dt;  % calculate movement
+    
     %{
     % mechanism: force to a specific depth
     dz = settings.forcedDepth - p.z;  % jump particles straight to forced_depth
