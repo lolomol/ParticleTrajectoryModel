@@ -8,9 +8,10 @@ function p = updateForcingDataOnParticles(p, settings)
     p.T = settings.T.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % g / kg
     
     %% Chlorophyll
-    p.chl = settings.chl_surf.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % mg m^-3
+    chl_surf = settings.chl_surf.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % mg m^-3
+    p.chl = chl_surf;
     
     %% Light
-    p.I = 1000*ones(1, p.np);  % will calculate from I_surf, micro mol quanta m^-2 s^-1
+    p.I = getSurfacePAR(p.lat, p.lon, datetime(settings.date, 'convertfrom', 'datenum'));  % will calculate from I_surf, micro mol quanta m^-2 s^-1
 end
 
