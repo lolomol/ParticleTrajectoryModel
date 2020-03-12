@@ -5,8 +5,8 @@ function [p, dz] = getVerticalTransport(p, dt, settings)
 %   dt: timestep (seconds)
 
     % mechanism: biofouling
-    % modifies particle, so particle returned as well
-    [p, dz] = biofoulingTransport(p, dt, settings);
+    p = loadForcingData(p, settings);  % load T, S, chl, I onto particle
+    [p, dz] = biofoulingTransport(p, dt, settings); % modifies particle, so particle returned as well
 
     %{
     % mechanism: force to a specific depth

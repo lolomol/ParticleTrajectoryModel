@@ -25,7 +25,6 @@ for date=dateStart:calmonths(1):dateEnd
             url=[base_url dataset];  
             
             disp(['downloading: ' filename]);
-            options = weboptions('Username','dklink','Password','Raglan3225');
             wget_base_command = 'wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --auth-no-challenge=on --keep-session-cookies --content-disposition'; 
             system([wget_base_command ' -O ' filename ' ' url], '-echo');
         catch

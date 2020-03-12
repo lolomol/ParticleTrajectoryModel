@@ -1,3 +1,17 @@
+%% Temperature/Salinity
+if currentYear==2015
+settings.TempPath        = '/Users/dklink/data_science/trashtracker/forcing_data/TS_2015_01_2015_12.nc';
+settings.SaltPath        = '/Users/dklink/data_science/trashtracker/forcing_data/TS_2015_01_2015_12.nc';
+else
+error('Temperature/Salinity forcing undefined for %d', currentYear);
+end
+
+%% Surface Chlorophyll-A
+if currentYear==2015
+settings.ChlSurfPath        = '/Users/dklink/data_science/trashtracker/forcing_data/CHL_2015_01_2015_12.nc';
+else
+error('Surface Chlorophyll-A forcing undefined for %d', currentYear);
+end
 
 %% Sea Surface Current
 if currentYear<=2005

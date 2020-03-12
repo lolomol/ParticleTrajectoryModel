@@ -17,6 +17,7 @@ function [p, dz] = biofoulingTransport(p, dt, settings)
     p.T = T*ones(1, p.np);  % will pull from real data, celsius
     p.chl = chl*ones(1, p.np);  % will pull from real data, mg m^-3
     p.I = I_surf*ones(1, p.np);  % will calculate from I_surf, micro mol quanta m^-2 s^-1
+    p.I(p.z > 200) = 0;  % what a nice vertical profile
     
     p = updateBiofouling(p, dt);  % make the algae grow
     p = getSettlingVelocity(p);  % calculate the settling speed
