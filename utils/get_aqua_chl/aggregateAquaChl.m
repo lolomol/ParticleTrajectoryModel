@@ -38,3 +38,7 @@ ncwriteatt(outfile, '/', 'westernmost_longitude', 0);
 ncwriteatt(outfile, '/', 'easternmost_longitude', 360);
 ncwriteatt(outfile, '/', 'geospatial_lon_min', 0);
 ncwriteatt(outfile, '/', 'geospatial_lon_max', 360);
+
+%% Decrease Horizontal Resolution by 5x
+disp('decreasing horizontal resolution...');
+system(['ncks -o --dmn lon,,,5 --dmn lat,,,5 ' outfile ' ' outfile]);

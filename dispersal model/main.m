@@ -47,7 +47,7 @@ while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.fin
     p = updateParticles( p, dx, dy, settings);
     
     % transport vertical, with smaller timesteps
-    num_nested_timesteps = 1;
+    num_nested_timesteps = 24;
     small_dt = dt/num_nested_timesteps;
     for i=1:num_nested_timesteps
         [p, dz] = getVerticalTransport(p, small_dt, settings);
