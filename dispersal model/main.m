@@ -49,9 +49,11 @@ while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.fin
     % transport vertical, with smaller timesteps
     num_nested_timesteps = 24;
     small_dt = dt/num_nested_timesteps;
+    time = datetime(settings.date, 'convertfrom', 'datenum');
     for i=1:num_nested_timesteps
-        [p, dz] = getVerticalTransport(p, small_dt, settings);
+        [p, dz] = getVerticalTransport(p, small_dt, settings, time);
         p = updateParticlesVertical(p, dz, settings);
+        time = time + seconds(small_dt);
     end
     
     % update time
@@ -63,7 +65,7 @@ while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.fin
         p = storeOutput( p, settings);
         plotParticles ( p, settings)
     end
-    
+
     
 end
 
