@@ -29,5 +29,10 @@ netcdf.putVar(ncid, 4, p.releaseDate)
 netcdf.putVar(ncid, 5, p.UNSD)
 netcdf.putVar(ncid, 6, p.Z)
 
+if settings.verticalTransport == "biofouling"
+    netcdf.defVar(ncid,'r_pl','NC_FLOAT', [time_dimID, p_dimID] );
+    netcdf.defVar(ncid,'rho_pl','NC_FLOAT', [time_dimID, p_dimID] );
+end
+
 netcdf.close(ncid)
 

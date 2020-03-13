@@ -37,4 +37,12 @@ p.LON=zeros( length(settings.outputDateList) ,p.np);
 p.LAT=zeros( length(settings.outputDateList) ,p.np);
 p.Z=zeros( length(settings.outputDateList) ,p.np);
 
-
+if settings.verticalTransport == "biofouling"
+    % initialize stuff for biofouling
+    p.rho_pl = settings.rho_pl*ones(1, p.np);
+    p.r_pl = settings.r_pl*ones(1, p.np);
+    p.r_tot = p.r_pl;
+    p.rho_tot = p.rho_pl;
+    p.A = 1*ones(1, p.np);
+    p.dzdt = zeros(1, p.np);
+end

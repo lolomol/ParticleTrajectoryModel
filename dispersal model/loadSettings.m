@@ -1,16 +1,24 @@
-%% Temperature/Salinity
-if currentYear==2015
-settings.TempPath        = '/Users/dklink/data_science/trashtracker/forcing_data/TS_2015_01_2015_12.nc';
-settings.SaltPath        = '/Users/dklink/data_science/trashtracker/forcing_data/TS_2015_01_2015_12.nc';
-else
-error('Temperature/Salinity forcing undefined for %d', currentYear);
-end
+%% Vertical Transport Mechanism
+% available transport mechanisms: "biofouling", "fixed_depth", "oscillating"
+settings.verticalTransport = "biofouling";
 
-%% Surface Chlorophyll-A
-if currentYear==2015
-settings.ChlSurfPath        = '/Users/dklink/data_science/trashtracker/forcing_data/CHL_2015_01_2015_12.nc';
-else
-error('Surface Chlorophyll-A forcing undefined for %d', currentYear);
+if settings.verticalTransport == "biofouling"
+    settings.r_pl = .001;  % m
+    settings.rho_pl = 920;  % kg m^-3
+    % specify paths for temp, salinity, chlorophyll
+    %% Temperature/Salinity
+    if currentYear==2015
+    settings.TempSaltPath        = '/Users/dklink/data_science/trashtracker/forcing_data/TS_2015_01_2015_12.nc';
+    else
+    error('Temperature/Salinity forcing undefined for %d', currentYear);
+    end
+
+    %% Surface Chlorophyll-A
+    if currentYear==2015
+    settings.ChlSurfPath        = '/Users/dklink/data_science/trashtracker/forcing_data/CHL_2015_01_2015_12.nc';
+    else
+    error('Surface Chlorophyll-A forcing undefined for %d', currentYear);
+    end
 end
 
 %% Sea Surface Current
@@ -76,8 +84,13 @@ settings.initDate       = datenum(currentYear  ,01,01,0,0,0);
 %settings.finalDate      = datenum(currentYear+1,01,01,0,0,0);
 settings.finalDate      = datenum(currentYear,12,31,0,0,0);
 settings.modelTimestep  = datenum(0,0,1,0,0,0)  *24 *3600 ; %in sec, 1 day, coarse
-settings.nestedVerticalTimesteps = 12;  % how many vertical timesteps per modelTimestep
-settings.outputTimestep = datenum(0,0,1,0,0,0);
+if settings.verticalTransport == "biofouling"
+    settings.nestedVerticalTimesteps = 24;  % how many vertical timesteps per modelTimestep
+    settings.outputTimestep = datenum(0,0,0,2,0,0);  % save enough resolution to see daily activity
+else
+    settings.nestedVerticalTimesteps = 1;
+    settings.outputTimestep = datenum(0,0,1,0,0,0);
+end
 
 %% Forcing constituents paramaters
 settings.ForcingCurrent   = true;
@@ -89,8 +102,9 @@ settings.ForcingDiffusion = true;
 settings.WindageCoeff     = 0.005; % windage
 settings.EddyDiffusivity  = 0.1 ; % m2/s
 settings.TimeAdvectDir    = 1   ; % =1 normal, -1 reverse dispersal
-
-
+if settings.verticalTransport == "fixed_depth"
+    settings.fixedDepth = 0;  % controls the depth particles are set to
+end
 
 %% NO EDIT PAST THIS POINT --------------------------------------------------------------------------------------------------------------------
 
