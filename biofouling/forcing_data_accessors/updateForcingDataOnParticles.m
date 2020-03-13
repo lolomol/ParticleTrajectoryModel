@@ -1,8 +1,7 @@
-function p = updateForcingDataOnParticles(p, settings, time)
+function p = updateForcingDataOnParticles(p, settings)
 %LOADFORCINGDATA loads the local forcing data conditions onto each particle
 %   p: the particle structure
 %   settings: settings
-%   time: current model time (datetime object)
 %   returns: the modified particle structure
 
     %% Temp/Salinity
@@ -17,7 +16,7 @@ function p = updateForcingDataOnParticles(p, settings, time)
     p.chl = chlAtZ(p.z, chl_surf, stratified);
     
     %% Light
-    I_surf = getSurfacePAR(p.lat, p.lon, time);  % will calculate from I_surf, micro mol quanta m^-2 s^-1
+    I_surf = getSurfacePAR(p.lat, p.lon, datetime(settings.date, 'convertfrom', 'datenum'));  % will calculate from I_surf, micro mol quanta m^-2 s^-1
     chl_tot = chlAboveZ(p.z, chl_surf, p.chl, stratified);
     p.I = lightAtZ(p.z, I_surf, chl_tot);
 end

@@ -41,4 +41,4 @@ ncwriteatt(outfile, '/', 'geospatial_lon_max', 360);
 
 %% Decrease Horizontal Resolution by 5x
 disp('decreasing horizontal resolution...');
-system(['ncks -o --dmn lon,,,5 --dmn lat,,,5 ' outfile ' ' outfile]);
+system(['ncks -O --dmn lon,,,5 --dmn lat,,,5 ' outfile ' ' outfile]);

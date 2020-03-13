@@ -1,11 +1,11 @@
-function [p, dz] = getVerticalTransport(p, dt, settings, time)
+function [p, dz] = getVerticalTransport(p, dt, settings)
 %getVerticalTransport calculate vertical transport via any number of
 % arbitrary mechanisms
 %   p: particle structure
 %   dt: timestep (seconds)
 
     % mechanism: biofouling
-    p = updateForcingDataOnParticles(p, settings, time);  % load T, S, chl, I onto particle
+    p = updateForcingDataOnParticles(p, settings);  % load T, S, chl, I onto particle
     p = updateBiofouling(p, dt);  % make the algae grow
     p = getSettlingVelocity(p);  % calculate the settling speed
     dz = p.dzdt*dt;  % calculate movement
