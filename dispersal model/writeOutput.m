@@ -31,7 +31,9 @@ netcdf.putVar(ncid, 6, p.Z)
 
 if settings.verticalTransport == "biofouling"
     netcdf.defVar(ncid,'r_pl','NC_FLOAT', [time_dimID, p_dimID] );
+    netcdf.putVar(ncid, 7, p.r_pl)
     netcdf.defVar(ncid,'rho_pl','NC_FLOAT', [time_dimID, p_dimID] );
+    netcdf.putVar(ncid, 8, p.rho_pl)
 end
 
 netcdf.close(ncid)
