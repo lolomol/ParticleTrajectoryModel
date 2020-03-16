@@ -3,8 +3,8 @@
 settings.verticalTransport = "biofouling";
 
 if settings.verticalTransport == "biofouling"
-    settings.r_pl = .001;  % m
-    settings.rho_pl = 920;  % kg m^-3
+    settings.r_pl = .001;  % m (radius of plastic)
+    settings.rho_pl = 920;  % kg m^-3 (density of plastic)
     % specify paths for temp, salinity, chlorophyll
     %% Temperature/Salinity
     if currentYear==2015
@@ -16,6 +16,7 @@ if settings.verticalTransport == "biofouling"
     %% Surface Chlorophyll-A
     if currentYear==2015
     settings.ChlSurfPath        = '/Users/dklink/data_science/trashtracker/forcing_data/CHL_2015_01_2015_12.nc';
+            % download in utils/aqua_chlor/, from NASA aqua-modis
     else
     error('Surface Chlorophyll-A forcing undefined for %d', currentYear);
     end
