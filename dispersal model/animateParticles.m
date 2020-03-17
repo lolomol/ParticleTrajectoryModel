@@ -1,10 +1,15 @@
-filename = 'parts_2015_2015_0m.nc';
-file = ['../output/' filename];
-time = ncread(file, 'time');
-lon = ncread(file, 'lon');
-lat = ncread(file, 'lat');
-releaseDate = ncread(file, 'releaseDate');
-depth = ncread(file, 'depth');
+filePrefix='1000m';
+time=[];lon=[];lat=[];releaseDate=[];depth=[];
+for year=2015:2019
+    filename = [filePrefix '_parts_' num2str(year) '_2015.nc'];
+    file = ['../output/' filename];
+    time = vertcat(time, ncread(file, 'time'));
+    lon = vertcat(lon, ncread(file, 'lon'));
+    lat = vertcat(lat, ncread(file, 'lat'));
+    depth = vertcat(depth, ncread(file, 'depth'));
+end
+releaseDate = ncread(file, 'releaseDate');  % same across all files
+
 
 figure('Position', [100, 100, 1200, 800]);
 m_proj('miller');
