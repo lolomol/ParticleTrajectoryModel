@@ -20,6 +20,8 @@ if settings.verticalTransport == "biofouling"
     else
     error('Surface Chlorophyll-A forcing undefined for %d', currentYear);
     end
+elseif settings.verticalTransport == "fixed_depth"
+    settings.fixedDepth = 0;  % controls the depth particles are set to
 end
 
 %% Sea Surface Current
@@ -103,9 +105,6 @@ settings.ForcingDiffusion = true;
 settings.WindageCoeff     = 0.005; % windage
 settings.EddyDiffusivity  = 0.1 ; % m2/s
 settings.TimeAdvectDir    = 1   ; % =1 normal, -1 reverse dispersal
-if settings.verticalTransport == "fixed_depth"
-    settings.fixedDepth = 0;  % controls the depth particles are set to
-end
 
 %% NO EDIT PAST THIS POINT --------------------------------------------------------------------------------------------------------------------
 
