@@ -6,7 +6,7 @@ function [p, dz] = getVerticalTransport(p, dt, settings, forcings)
 
     if settings.verticalTransport == "biofouling"
         % mechanism: biofouling
-        p = updateForcingDataOnParticles(p, settings, forcings);  % load T, S, chl, I onto particle
+        p = updateBiofoulingForcingDataOnParticles(p, settings, forcings);  % load T, S, chl, I onto particle
         p = updateBiofouling(p, dt);  % make the algae grow
         p = getSettlingVelocity(p);  % calculate the settling speed
         dz = p.dzdt*dt;  % calculate movement

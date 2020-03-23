@@ -38,11 +38,11 @@ p.LAT=zeros( length(settings.outputDateList) ,p.np);
 p.Z=zeros( length(settings.outputDateList) ,p.np);
 
 if settings.verticalTransport == "biofouling"
-    % initialize stuff for biofouling
-    p.rho_pl = settings.rho_pl*ones(1, p.np);  %TODO: what these are exactly
-    p.r_pl = settings.r_pl*ones(1, p.np);
-    p.r_tot = p.r_pl;
-    p.rho_tot = p.rho_pl;
-    p.A = 1*ones(1, p.np);
-    p.dzdt = zeros(1, p.np);
+    % initialize particle properties needed for biofouling simulation
+    p.rho_pl = settings.rho_pl*ones(1, p.np);  %density of plastic particles (kg m^-3)
+    p.r_pl = settings.r_pl*ones(1, p.np);       %radius of plastic particles (m)
+    p.r_tot = p.r_pl;       % total radius of plastic particles + biofilm (m)
+    p.rho_tot = p.rho_pl;   % total density of plastic particles + biofilm (kg m^-3)
+    p.A = 1*ones(1, p.np);  % algae concentration on surface of plastic particle (# algae m^-2)
+    p.dzdt = zeros(1, p.np);    % current vertical velocity of particle (m s^-1)
 end

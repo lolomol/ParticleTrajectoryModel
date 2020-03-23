@@ -1,7 +1,7 @@
 function I_z = lightAtZ(z, I_surf, chl_tot)
 %LIGHTATZ calculate the light intensity at depth z, given surface light
 %   intensity and the depth-integrated chlorophyll above z.
-%   Method from Lorenzen 1972
+%   Method from Lorenzen 1972 (https://doi.org/10.1093/icesjms/34.2.262)
 %   Inputs are vectors length n, output is vector length n
 %   z: depth (m, positive down)
 %   I_surf: light intensity at surface (micro mol quanta m^-2 s^-1)

@@ -1,5 +1,6 @@
 classdef BiofoulingConstants
     % Constants needed for biofouling calculations
+    % All these come from Kooi 20017 (https://doi.org/10.1021/acs.est.6b04702) and its supplemental information
     properties (Constant)
         % PHYSICAL CONSTANTS
         g = 9.81;  % gravitational acceleration (m s^-2, positive down)

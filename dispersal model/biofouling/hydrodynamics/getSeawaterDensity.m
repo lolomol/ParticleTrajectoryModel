@@ -1,6 +1,6 @@
 function rho_sw = getSeawaterDensity(S, T)
 %GET_SEAWATER_DENSITY calculate rho_sw along salinity/temp vectors
-    % parameterization from Sharqawy et al 2010, cited by Kooi 2017
+    % parameterization from Sharqawy et al 2010 (DOI: 10.5004/dwt.2010.1079), cited by Kooi 2017
 %S: salinity (g / kg)
 %T: temp (celsius)
 %returns: density of seawater (kg m^-3)

@@ -21,7 +21,7 @@ if settings.verticalTransport == "biofouling"
     error('Surface Chlorophyll-A forcing undefined for %d', currentYear);
     end
 elseif settings.verticalTransport == "fixed_depth"
-    settings.fixedDepth = 0;  % controls the depth particles are set to
+    settings.fixedDepth = 0;  % controls the depth particles are set to (m)
 end
 
 %% Forcing Data Settings

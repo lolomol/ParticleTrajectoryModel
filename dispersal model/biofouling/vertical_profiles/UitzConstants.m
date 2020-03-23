@@ -1,6 +1,17 @@
 classdef UitzConstants
-    %UITZCONSTANTS holds constants from various tables in Uitz 2006
+    %UITZCONSTANTS These constants are used to contruct vertical profiles of chlorophyll
+    % concentration, as outlined in Uitz 2006 (https://doi.org/10.1029/2005JC003207)
     %   See note, I change one constant in s_stratified to address non-physical fit
+    
+    % EXPLANATION OF METHOD
+    %   Stratified waters (euphotic depth (z_eu) > mixed layer depth (MLD))
+    %       parameterization is a linear decrease with depth added to a gaussian,
+    %       centered at the chlorophyll maximum.  9 sets of fitted coefficients
+    %       correspond to 9 bins of surface chlorophyll concentration.
+    %   Mixed waters (z_eu < MLD)
+    %       parameterization is no decrease with depth until z_eu, then a
+    %       linear decrease hitting zero at 3*z_eu.  5 estimates of z_eu
+    %       correspond to 5 bins of surface chlorophyll concentration.
     
     properties (Constant)
         ave_Z_eu_stratified = [119.1, 99.9, 91.0, 80.2, 70.3, 63.4, 54.4, 39.8, 26.1];  % m

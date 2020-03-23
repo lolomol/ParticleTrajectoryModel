@@ -1,6 +1,6 @@
 function mu_sw = dynamicViscositySeawater (S, T)
 % dynamic_viscosity_seawater: calculate dynamic viscosity of seawater at each particle
-% empirical parameterization used in Kooi 2017 eq. 26-29, from Sharqawy 2010 eq. 22-23
+% empirical parameterization used in Kooi 2017 eq. 26-29, from Sharqawy 2010 (DOI: 10.5004/dwt.2010.1079) eq. 22-23
 % S: salinity (g / kg)
 % T: water temp (celsius)
 % return: dynamic viscosity of seawater (kg m^-1 s^-1)

@@ -1,6 +1,6 @@
 function p = updateRadiusAndDensity(p)
 %UPDATERADIUSANDDENSITY updates the total radius and density for each particle
-%   from Kooi 2017
+%   from Kooi 2017 eq. 5-9
     V_A = BiofoulingConstants.V_A; % volume of single algal particle (m^3)
     rho_A = BiofoulingConstants.rho_A;  % density of algae (kg m^-3)
     
