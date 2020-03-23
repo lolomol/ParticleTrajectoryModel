@@ -1,15 +1,15 @@
-function p = updateForcingDataOnParticles(p, settings)
+function p = updateForcingDataOnParticles(p, settings, forcings)
 %LOADFORCINGDATA loads the local forcing data conditions onto each particle
 %   p: the particle structure
 %   settings: settings
 %   returns: the modified particle structure
 
     %% Temp/Salinity
-    p.S = settings.S.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % g / kg
-    p.T = settings.T.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % g / kg
+    p.S = forcings.S.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % g / kg
+    p.T = forcings.T.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % g / kg
     
     %% Chlorophyll
-    chl_surf = settings.chl_surf.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % mg m^-3
+    chl_surf = forcings.chl_surf.select(p.lon, p.lat, p.z, settings.date*ones(1, p.np));  % mg m^-3
     chl_surf(isnan(chl_surf)) = median(chl_surf, 'omitnan');  % not the best assumption, but we can't have nans
     %stratified = true(1, p.np);  % assume all waters stratified
     stratified = false(1, p.np); % assume all waters mixed

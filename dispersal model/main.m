@@ -1,15 +1,10 @@
 function main(p,settings)
 
-if settings.verticalTransport == "biofouling"
-    % load ALL the biofouling forcing data before the model run (this may not work when files get bigger)
-    disp('starting forcing data load');
-    settings = loadForcingData(p, settings, datetime([settings.initDate, settings.finalDate], 'convertfrom','datenum'));
-    disp('loaded!');
+forcings = struct();  % init forcings
 
-    p = storeOutput( p, settings);
-end
-
+p = storeOutput( p, settings);
 while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.finalDate % !! (settings.finalDate-settings.initDate)/settings.modelTimestep must be integer !!
+    forcings = loadForcings(forcings, settings);  % attempt to refresh forcings every model step
     
     % init forcing constituents
     u=0;v=0;
@@ -55,18 +50,17 @@ while settings.TimeAdvectDir*settings.date < settings.TimeAdvectDir*settings.fin
     % transport vertical, with smaller timesteps
     small_dt = settings.modelTimestep/settings.nestedVerticalTimesteps;
     for i=1:settings.nestedVerticalTimesteps
-        [p, dz] = getVerticalTransport(p, small_dt, settings);
+        [p, dz] = getVerticalTransport(p, small_dt, settings, forcings);
         p = updateParticlesVertical(p, dz, settings);
         
+        % update time
+        settings.date = settings.date + settings.TimeAdvectDir*days(seconds(small_dt));
         % store if we need to
         if settings.date >= settings.outputDate
             p = storeOutput( p, settings);
             plotParticles ( p, settings)
             settings.outputDate = settings.outputDate + settings.TimeAdvectDir*  settings.outputTimestep;
         end
-        
-        % update time
-        settings.date = settings.date + settings.TimeAdvectDir*days(seconds(small_dt));
     end
     
 end

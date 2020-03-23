@@ -24,6 +24,12 @@ elseif settings.verticalTransport == "fixed_depth"
     settings.fixedDepth = 0;  % controls the depth particles are set to
 end
 
+%% Forcing Data Settings
+% control spatial extent of data load.  Used for model runs which only operate on some subsection of the world's oceans (e.g. only North Pacific)
+settings.forcingsLatRange = [-90, 90];
+settings.forcingsLonRange = [0, 360];
+settings.forcingsDepthRange = [0, inf];
+
 %% Sea Surface Current
 if currentYear<=2005
 settings.SScurrentPath        = 'G:\hycom\';
