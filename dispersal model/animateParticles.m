@@ -1,6 +1,6 @@
-filePrefix='1000m';
+filePrefix='100m';
 time=[];lon=[];lat=[];releaseDate=[];depth=[];
-for year=2015:2019
+for year=2110:2115
     filename = [filePrefix '_parts_' num2str(year) '_2015.nc'];
     file = ['../output/' filename];
     time = vertcat(time, ncread(file, 'time'));
